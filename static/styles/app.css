@@ -1,0 +1,8 @@
+.app {
+  width: 100%;
+  height: 100%;
+
+  font-family: Bitter;
+  color: white;
+  background-color: #37474F;  /* Blue Grey 800 */
+}

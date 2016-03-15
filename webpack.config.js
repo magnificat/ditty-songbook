@@ -4,7 +4,8 @@ module.exports = {
   entry: './source/index.js',
 
   output: {
-    filename: 'bundle.js'
+    path: './static',
+    filename: 'scripts.js'
   },
 
   module: {

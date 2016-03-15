@@ -1,0 +1,14 @@
+#! /bin/bash -e
+
+if test "$1" = '--help'; then echo "\
+Usage:
+  $0 [--open]
+  $0 --help
+"; exit; fi
+
+cd "$(dirname "$0")"/..
+node_modules/.bin/webpack-dev-server \
+  --port=9111 \
+  --content-base=static/ \
+  --inline \
+  $@
