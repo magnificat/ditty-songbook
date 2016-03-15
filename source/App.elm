@@ -1,17 +1,18 @@
 module App where
 
-import Html exposing ( Html, div )
+import Html exposing ( Html, div, h1, text, p )
 import Html.Attributes exposing ( class )
 
 
 -- MODEL
 
 type alias Model =
-  Maybe ()
+  { appName : String
+  , subtitle : String
+  }
 
-init : Model
-init =
-  Nothing
+init : Model -> Model
+init model = model
 
 
 -- UPDATE
@@ -27,7 +28,13 @@ update action model = model
 
 view : Signal.Address Action -> Model -> Html
 view address model =
-  div
-    [ class "app"
+  div [ class "app" ]
+    [ div [ class "dashboard" ]
+      [ h1 [ class "dashboard’s-title" ]
+        [ text model.appName
+        ]
+      , p [ class "dashboard’s-subtitle" ]
+        [ text model.subtitle
+        ]
+      ]
     ]
-    []

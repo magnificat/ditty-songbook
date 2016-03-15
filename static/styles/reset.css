@@ -9,4 +9,5 @@ html, body, #main {
   box-sizing: border-box;
   font-family: inherit;
   font-weight: inherit;
+  line-height: inherit;
 }

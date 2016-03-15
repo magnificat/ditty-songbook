@@ -4,4 +4,11 @@ import Html
 
 main : Signal Html.Html
 main =
-  start { model = init, update = update, view = view }
+  start
+    { model = init
+      { appName = "magnificat"
+      , subtitle = "Śpiewnik Equipes Notre Dame"
+      }
+    , update = update
+    , view = view
+    }
