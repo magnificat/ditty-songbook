@@ -3,6 +3,7 @@
     "elm": "^0.16.0",
     "elm-webpack-loader": "^2.0.1",
     "npm": "^3.8.1",
-    "webpack": "^1.12.14"
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
   }
 }
