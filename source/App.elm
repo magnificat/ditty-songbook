@@ -37,4 +37,7 @@ view address model =
         [ text model.subtitle
         ]
       ]
+
+    , div [ class "display" ]
+      []
     ]
