@@ -1,6 +1,6 @@
 [![Travis – build status
-](https://img.shields.io/travis/magnificat/ditty/master.svg?style=flat-square
-)](https://travis-ci.org/magnificat/ditty
+](https://img.shields.io/travis/magnificat/ditty-songbook/master.svg?style=flat-square
+)](https://travis-ci.org/magnificat/ditty-songbook
 ) [![Code style: airbnb
 ](https://img.shields.io/badge/code%20style-airbnb-777777.svg?style=flat-square
 )](https://github.com/airbnb/javascript
