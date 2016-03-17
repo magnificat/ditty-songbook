@@ -7,6 +7,7 @@ Usage:
 "; exit; fi
 
 cd "$(dirname "$0")"/..
+export PATH="$(pwd)/node_modules/.bin:$PATH"
 node_modules/.bin/webpack-dev-server \
   --port=9111 \
   --content-base=static/ \
