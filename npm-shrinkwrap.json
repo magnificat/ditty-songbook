@@ -2632,6 +2632,10 @@
       "from": "pako@>=0.2.0 <0.3.0",
       "resolved": "https://registry.npmjs.org/pako/-/pako-0.2.8.tgz"
     },
+    "parse-ditty": {
+      "version": "1.0.3",
+      "from": "parse-ditty@latest"
+    },
     "parse-glob": {
       "version": "3.0.4",
       "from": "parse-glob@>=3.0.4 <4.0.0",

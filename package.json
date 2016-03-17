@@ -10,6 +10,7 @@
     "jss-lite-loader": "^1.0.1",
     "npm": "^3.8.1",
     "object-merge": "^2.5.1",
+    "parse-ditty": "^1.0.3",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
