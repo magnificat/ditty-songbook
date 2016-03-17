@@ -1,5 +1,4 @@
 const u = require('../styles/utils');
-const c = require('../styles/config');
 
 module.exports = {
   '.dashboard': {
