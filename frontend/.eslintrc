@@ -1,0 +1,3 @@
+rules:
+  quote-props: 0
+    # We quote all git.io/orthodox properties to keep them consistent.
