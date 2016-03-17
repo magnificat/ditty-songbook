@@ -1,13 +1,5 @@
-#! /bin/bash -e
+#! /bin/bash -ex
 
-if test "$1" = '--help'; then echo "\
-Usage:
-  $0 [...<webpack args>]
-  $0 --help
-
-  We’ll run webpack to build the lot. We’ll pass on any args to webpack.
-"; exit; fi
-
-cd "$(dirname "$0")"/..
-export PATH="$(pwd)/node_modules/.bin:$PATH"
-node_modules/.bin/webpack $@
+scripts="$(dirname "$0")"
+"$scripts"/backend
+"$scripts"/frontend
