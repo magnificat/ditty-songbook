@@ -12,6 +12,7 @@
     "object-merge": "^2.5.1",
     "parse-ditty": "^1.0.3",
     "style-loader": "^0.13.0",
+    "surge": "^0.17.7",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
   }
