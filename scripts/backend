@@ -1,0 +1,21 @@
+#! /bin/bash -e
+
+if test "$1" = '--help'; then echo "\
+Usage:
+  $0 [--help]
+
+  Run this script to build static backend files. We’ll parse the contents
+  of the \`data/\` directory and generate two files out of them:
+  \`static/api/categories.json\` and \`static/api/songs.json\`.
+"; exit; fi
+
+cd "$(dirname "$0")"/..
+mkdir -p static/api
+echo; echo 'Parsing data and writing files…'
+node --harmony_destructuring --eval "
+  const fs = require('fs');
+  const { categories, songs } = require('./backend/static-api.js');
+  fs.writeFileSync('static/api/songs.json', songs);
+  fs.writeFileSync('static/api/categories.json', categories);
+"
+echo '…done. Check `static/api/`'
