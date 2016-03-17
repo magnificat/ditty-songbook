@@ -1,0 +1,17 @@
+sudo:
+  false
+
+branches:
+  only:
+    - master
+
+language:
+  node_js
+node_js:
+  - stable
+
+script:
+  - scripts/lint
+
+after_success:
+  - scripts/build && scripts/deploy
