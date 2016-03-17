@@ -1,7 +1,7 @@
 const directoryRE = (dirname) => new RegExp(`(?:^|/)${ dirname }/`);
 
 module.exports = {
-  entry: './source/index.js',
+  entry: './frontend/index.js',
 
   output: {
     path: './static',

@@ -4,7 +4,7 @@
     "repository": "https://github.com/magnificat/ditty-songbook.git",
     "license": "MIT",
     "source-directories": [
-        "source"
+        "frontend"
     ],
     "exposed-modules": [],
     "dependencies": {
