@@ -1,4 +1,4 @@
-import App exposing (init, update, view)
+import Components.App exposing (init, update, view)
 import StartApp.Simple exposing (start)
 import Html
 

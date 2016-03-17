@@ -1,4 +1,4 @@
-module App where
+module Components.App where
 
 import Html exposing ( Html, div, h1, text, p )
 import Html.Attributes exposing ( class )
