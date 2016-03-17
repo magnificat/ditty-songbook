@@ -6,9 +6,9 @@ const dataPath = `${__dirname}/../data`;
 const rawCategories = fs.readdirSync(dataPath);
 const categoryPattern = new RegExp(
   '^' +
-    '(\\d+)' +  // (1) Category ID,
-    '\\.\s*' +  // followed by a dot and optional whitespace,
-    '(.+)' +    // followed by (2) the category name.
+    '(\\d+)' +    // (1) Category ID,
+    '\\.\\s*' +   // followed by a dot and optional whitespace,
+    '(.+)' +      // followed by (2) the category name.
   '$'
 );
 const categoriesData = rawCategories.map((dirname) => {
