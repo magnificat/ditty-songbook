@@ -7,7 +7,7 @@
 )
 
 
-# [magnificat.surge.sh](https://magnificat.surge.sh)
+# magnificat.surge.sh [➔](https://magnificat.surge.sh)
 
 **An offline-first songbook app**
 
