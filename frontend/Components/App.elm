@@ -2,6 +2,7 @@ module Components.App where
 
 import Html exposing ( Html, div, h1, text, p )
 import Html.Attributes exposing ( class )
+import Effects exposing (Effects)
 
 
 -- MODEL
@@ -11,8 +12,11 @@ type alias Model =
   , subtitle : String
   }
 
-init : Model -> Model
-init model = model
+init : Model -> (Model, Effects Action)
+init model =
+  ( model
+  , Effects.none
+  )
 
 
 -- UPDATE
@@ -20,8 +24,11 @@ init model = model
 type alias Action
   = Maybe ()
 
-update : Action -> Model -> Model
-update action model = model
+update : Action -> Model -> (Model, Effects Action)
+update action model =
+  ( model
+  , Effects.none
+  )
 
 
 -- VIEW

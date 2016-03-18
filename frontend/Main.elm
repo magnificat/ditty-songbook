@@ -1,14 +1,23 @@
 import Components.App exposing (init, update, view)
-import StartApp.Simple exposing (start)
+import StartApp
 import Html
+import Effects exposing (Never)
+import Task
 
-main : Signal Html.Html
-main =
-  start
-    { model = init
+app =
+  StartApp.start
+    { init = init
       { appName = "magnificat"
       , subtitle = "Śpiewnik Equipes Notre Dame"
       }
     , update = update
     , view = view
+    , inputs = []
     }
+
+main =
+  app.html
+
+port tasks : Signal (Task.Task Never ())
+port tasks =
+  app.tasks
