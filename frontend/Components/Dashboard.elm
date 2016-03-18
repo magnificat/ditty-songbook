@@ -7,7 +7,7 @@ import Html.Attributes exposing ( class )
 -- MODEL
 
 type alias Model =
-  { appName : String
+  { title : String
   , subtitle : String
   , categories : List Category
   }
@@ -44,7 +44,7 @@ view address model =
   in
     div [ class "dashboard" ]
       [ h1 [ class "dashboard’s-title" ]
-        [ text model.appName
+        [ text model.title
         ]
       , p [ class "dashboard’s-subtitle" ]
         [ text model.subtitle

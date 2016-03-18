@@ -1,4 +1,4 @@
-module Components.App where
+module Components.Songbook where
 
 import Html exposing ( Html, div, h1, text, p )
 import Html.Attributes exposing ( class )
@@ -12,18 +12,18 @@ import Components.Display as Display
 -- MODEL
 
 type alias Model =
-  { appName : String
+  { title : String
   , subtitle : String
   , dashboard : Dashboard.Model
   }
 
-init : { appName : String, subtitle : String } -> (Model, Effects Action)
-init { appName, subtitle } =
+init : { title : String, subtitle : String } -> (Model, Effects Action)
+init { title, subtitle } =
   let
     model =
-      { appName = appName
+      { title = title
       , subtitle = subtitle
-      , dashboard = Dashboard.Model appName subtitle
+      , dashboard = Dashboard.Model title subtitle
         [ { id = 1, name = "One" }
         , { id = 2, name = "Two" }
         ]
@@ -50,7 +50,7 @@ update action model =
 
 view : Signal.Address Action -> Model -> Html
 view address model =
-  div [ class "app" ]
+  div [ class "songbook" ]
     [ Dashboard.view (Signal.forwardTo address DashboardAction) model.dashboard
     , Display.view (Signal.forwardTo address DisplayAction) ()
     ]
