@@ -15,7 +15,7 @@ This is an installable web app[\*](#installable-web-app) using Elm, [git.io/jss-
 
 At the moment, it’s an experiment – I’m doing this to test out new technologies. The app will scratch my own itch, but I hope to create something sustainable along the way. Something useful for others.
 
-<a id="installable-web-app">\* *installable web app* – there seems to be no agreement on how to name these things. Some call them [progressive web apps](https://developers.google.com/web/progressive-web-apps), some call them [native web apps](https://blog.andyet.com/2015/01/22/native-web-apps/) – and I remember seeing other names scattered over the internet. So, to follow the [well-established way of proliferating things](https://imgs.xkcd.com/comics/standards.png), I call them *installable* web apps. It’s accurate (in contrast to *native*), it’s understandable and explicit (in contrast to *progressive*) – and it implies that the app can run offline.
+<a id="installable-web-app">\* *installable web app* – there seems to be no agreement on how to name these things. Some call them [progressive web apps](https://developers.google.com/web/progressive-web-apps), some call them [native web apps](https://blog.andyet.com/2015/01/22/native-web-apps/) – and I remember seeing other names scattered over the internet. So, to follow the [well-established way of proliferating things](https://imgs.xkcd.com/comics/standards.png), I call them *installable* web apps. It’s accurate (in contrast to *native*), everyone understands it (in contrast to *progressive*) – and it implies that the app can run offline.
 
 
 ## TODO
