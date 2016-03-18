@@ -1,6 +1,6 @@
 module Components.Dashboard where
 
-import Html exposing ( Html, div, h1, text, p )
+import Html exposing ( Html, div, h1, text, p, ul, li )
 import Html.Attributes exposing ( class )
 
 
@@ -9,11 +9,13 @@ import Html.Attributes exposing ( class )
 type alias Model =
   { appName : String
   , subtitle : String
+  , categories : List Category
   }
 
-init : Model -> Model
-init model =
-  model
+type alias Category =
+  { id : Int
+  , name : String
+  }
 
 
 -- UPDATE
@@ -30,11 +32,23 @@ update action model =
 
 view : Signal.Address Action -> Model -> Html
 view address model =
-  div [ class "dashboard" ]
-    [ h1 [ class "dashboard’s-title" ]
-      [ text model.appName
+  let
+    renderCategory category =
+      li [ class "dashboard’s-category" ]
+        [ text
+          <| toString category.id
+          ++ ". "
+          ++ category.name
+        ]
+
+  in
+    div [ class "dashboard" ]
+      [ h1 [ class "dashboard’s-title" ]
+        [ text model.appName
+        ]
+      , p [ class "dashboard’s-subtitle" ]
+        [ text model.subtitle
+        ]
+      , ul [ class "dashboard’s-categories" ]
+        <| List.map renderCategory model.categories
       ]
-    , p [ class "dashboard’s-subtitle" ]
-      [ text model.subtitle
-      ]
-    ]
