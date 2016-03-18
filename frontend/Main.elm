@@ -1,4 +1,4 @@
-import Components.App exposing (init, update, view)
+import Components.Songbook exposing (init, update, view)
 import StartApp
 import Html
 import Effects exposing (Never)
@@ -7,7 +7,7 @@ import Task
 app =
   StartApp.start
     { init = init
-      { appName = "magnificat"
+      { title = "magnificat"
       , subtitle = "Śpiewnik Equipes Notre Dame"
       }
     , update = update
