@@ -11,9 +11,26 @@
 
 **An offline-first songbook app**
 
-This is a progressive web app using Elm and service workers.
+This is a progressive, installable web app using Elm and service workers.
 
 At the moment, it’s an experiment – I’m doing this to test out new technologies. But I’m hoping to create something useful and sustainable along the way.
+
+
+## TODO
+
+* [x] Data parser (see [magnificat/ditty](https://github.com/magnificat/ditty))
+* [x] Basic UI design
+* [x] JS-module-based style system (see [git.io/jss-lite-loader](https://git.io/jss-lite-loader) and [git.io/jss-lite](https://git.io/jss-lite))
+* [x] Static layout
+* [x] Static JSON API service
+* [x] CI integration with github data
+* [ ] Navigation
+* [ ] Full-screen lyrics display optimized for mobile and projector viewing
+* [ ] Swipe navigation
+* [ ] Offline installation
+* [ ] “Add to home screen”
+* [ ] Chords parser
+* [ ] Opt-in chords display
 
 
 ## License
