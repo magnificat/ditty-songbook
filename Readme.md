@@ -20,7 +20,7 @@ At the moment, it’s an experiment – I’m doing this to test out new technol
 
 ## TODO
 
-* [x] Data parser (see [magnificat/ditty](https://github.com/magnificat/ditty))
+* [x] Data parser (see [git.io/ditty](https://git.io/ditty))
 * [x] Basic UI design
 * [x] JS-module-based style system (see [git.io/jss-lite-loader](https://git.io/jss-lite-loader) and [git.io/jss-lite](https://git.io/jss-lite))
 * [x] A rudimentary static layout
