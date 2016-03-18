@@ -31,6 +31,8 @@ At the moment, it’s an experiment – I’m doing this to test out new technol
 * [ ] “Add to home screen”
 * [ ] Chords parser
 * [ ] Opt-in chords display
+* [ ] Lightning-fast font loading
+* [ ] Server-side UI prerender
 
 
 ## License
