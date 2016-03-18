@@ -1,13 +1,13 @@
 [![Travis – build status
-](https://img.shields.io/travis/magnificat/ditty-songbook/master.svg?style=flat-square
-)](https://travis-ci.org/magnificat/ditty-songbook
+](https://img.shields.io/travis/magnificat/magnificat.surge.sh/master.svg?style=flat-square
+)](https://travis-ci.org/magnificat/magnificat.surge.sh
 ) [![Code style: airbnb
 ](https://img.shields.io/badge/code%20style-airbnb-777777.svg?style=flat-square
 )](https://github.com/airbnb/javascript
 )
 
 
-# ditty-songbook
+# [magnificat.surge.sh](https://magnificat.surge.sh)
 
 **An offline-first songbook app**
 
