@@ -4,6 +4,9 @@ import Html exposing ( Html, div, h1, text, p )
 import Html.Attributes exposing ( class )
 import Effects exposing (Effects)
 import Signal
+import Http
+import Json.Decode as Json
+import Task
 
 import Components.Dashboard as Dashboard
 import Components.Display as Display
@@ -24,29 +27,39 @@ init { title, subtitle } =
       { title = title
       , subtitle = subtitle
       , dashboard = Dashboard.Model title subtitle
-        [ { id = 1, name = "One" }
-        , { id = 2, name = "Two, a bit longer" }
-        , { id = 3, name = "Three three" }
-        , { id = 4, name = "Fourish" }
-        , { id = 5, name = "Fifth but not least" }
-        ]
+        []
       }
 
   in
-    (model, Effects.none)
+    ( model
+    , getCategories
+    )
 
 
 -- UPDATE
 
 type Action
-  = DashboardAction Dashboard.Action
+  = RenderCategories (Maybe String)
+  | DashboardAction Dashboard.Action
   | DisplayAction Display.Action
 
 update : Action -> Model -> (Model, Effects Action)
 update action model =
-  ( model
-  , Effects.none
-  )
+  let
+    newModel =
+      case action of
+        RenderCategories (Just response) ->
+          { model
+          | dashboard = Dashboard.Model model.title model.subtitle
+            [{ id = 99, name = response }]
+          }
+
+        _ ->
+          newModel
+  in
+    ( newModel
+    , Effects.none
+    )
 
 
 -- VIEW
@@ -57,3 +70,17 @@ view address model =
     [ Dashboard.view (Signal.forwardTo address DashboardAction) model.dashboard
     , Display.view (Signal.forwardTo address DisplayAction) ()
     ]
+
+
+-- EFFECTS
+
+getCategories =
+  let
+    url =
+      Http.url "/api/categories.json" []
+
+  in
+    Http.get Json.string url
+      |> Task.toMaybe
+      |> Task.map RenderCategories
+      |> Effects.task
