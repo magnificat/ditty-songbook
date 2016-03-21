@@ -6,6 +6,8 @@ const FontFaceObserver = require('fontfaceobserver');
 const waitForMerriweather = new FontFaceObserver('Merriweather Light');
 waitForMerriweather.check().then(() => {
   document.documentElement.setAttribute('data-fonts-loaded', '');
+}).catch(() => {
+  document.documentElement.setAttribute('data-fonts-failed-to-load', '');
 });
 
 // Wire things up

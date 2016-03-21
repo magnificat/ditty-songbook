@@ -17,6 +17,12 @@ module.exports = {
 
   '[data-fonts-loaded] .songbook': {
     'font-family': '"Merriweather Light", serif',
+  },
+
+  [[
+    '[data-fonts-loaded] .songbook',
+    '[data-fonts-failed-to-load] .songbook',
+  ].join(', ')]: {
     'color': 'rgba(0, 0, 0, 0.87)',
   },
 };
