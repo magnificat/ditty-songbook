@@ -3,10 +3,6 @@ const c = require('../styles/config');
 
 const dashboardPadding = 20;
 
-const categoryBorderWidth = 1;
-const categoryBorder =
-  `${categoryBorderWidth}px solid currentColor`;
-
 module.exports = {
   '.dashboard': {
     'padding': u.inRem(dashboardPadding),
