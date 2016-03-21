@@ -52,6 +52,7 @@ module.exports = {
     'bottom': u.inRem(5),
     'left': u.inRem(-dashboardPadding),
     'width': u.inRem(5),
-    'background': 'rgba(0, 0, 0, 0.5)',
+    'background': 'currentColor',
+    'opacity': '0.6',
   },
 };
