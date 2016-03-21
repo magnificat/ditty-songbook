@@ -55,7 +55,7 @@ update action model =
           }
 
         _ ->
-          newModel
+          model
   in
     ( newModel
     , Effects.none
@@ -80,7 +80,7 @@ getCategories =
       Http.url "/api/categories.json" []
 
   in
-    Http.get Json.string url
+    Http.getString url
       |> Task.toMaybe
       |> Task.map RenderCategories
       |> Effects.task
