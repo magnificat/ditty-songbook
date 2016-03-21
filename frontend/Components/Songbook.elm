@@ -25,7 +25,10 @@ init { title, subtitle } =
       , subtitle = subtitle
       , dashboard = Dashboard.Model title subtitle
         [ { id = 1, name = "One" }
-        , { id = 2, name = "Two" }
+        , { id = 2, name = "Two, a bit longer" }
+        , { id = 3, name = "Three three" }
+        , { id = 4, name = "Fourish" }
+        , { id = 5, name = "Fifth but not least" }
         ]
       }
 

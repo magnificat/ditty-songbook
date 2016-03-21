@@ -1,1 +1,2 @@
-exports.appBackground = '#37474F'; // Blue Grey 800
+exports.navBarWidth = 400;
+exports.navBarViewportWidth = 450;
