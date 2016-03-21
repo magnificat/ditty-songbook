@@ -4,7 +4,10 @@ import Html exposing ( Html, div, h1, text, p, ul, li )
 import Html.Attributes exposing ( class )
 import Effects exposing ( Effects )
 import Http
-import Json.Decode exposing ( Decoder, decodeValue, succeed, string, list, int, (:=) )
+import Json.Decode exposing
+  ( Decoder, decodeValue, succeed, string, list, int, (:=)
+  )
+import Json.Decode.Extra exposing ( (|:) )
 import Task
 
 
@@ -97,6 +100,6 @@ getCategories =
 
 category : Decoder Category
 category =
-  Json.Decode.object2 Category
-    ("id" := int)
-    ("name" := string)
+  succeed Category
+    |: ("id" := int)
+    |: ("name" := string)
