@@ -44,13 +44,14 @@ module.exports = {
     ].join(' '),
   },
 
-  '.dashboard’s-category:not(:first-child)::before': {
+  '.dashboard’s-category::before': {
     'content': '" "',
     'display': 'block',
-    'width': '20%',
-    'height': '0',
-    'border-bottom': categoryBorder,
     'position': 'absolute',
-    'top': '0',
+    'top': u.inRem(5),
+    'bottom': u.inRem(5),
+    'left': u.inRem(-dashboardPadding),
+    'width': u.inRem(5),
+    'background': 'rgba(0, 0, 0, 0.5)',
   },
 };
