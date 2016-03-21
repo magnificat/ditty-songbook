@@ -1,8 +1,13 @@
+const u = require('../styles/utils');
+const c = require('../styles/config');
+
+const shadowBlur = 20;
+
 module.exports = {
   '.display': {
     'position': 'absolute',
     'top': '0',
-    'left': '25rem',
+    'left': u.inRem(c.navBarWidth),
 
     'height': '100%',
     'width': '100%',
@@ -14,11 +19,11 @@ module.exports = {
     'display': 'block',
     'content': '" "',
     'position': 'absolute',
-    'top': '-15rem',
+    'top': u.inRem(-shadowBlur),
     'left': '0',
-    'bottom': '-15rem',
+    'bottom': u.inRem(-shadowBlur),
     'right': '0',
 
-    'box-shadow': '0 0 10rem black',
+    'box-shadow': `0 0 ${u.inRem(shadowBlur)} black`,
   },
 };

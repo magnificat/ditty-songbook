@@ -1,4 +1,16 @@
+const c = require('./config');
+
 module.exports = {
+  [`@media screen and (max-width: ${c.navBarViewportWidth}px)`]: {
+    'html': {
+      'font-size': `${16 / c.navBarViewportWidth * 100}vw`,
+    },
+  },
+
+  '@-ms-viewport': {
+    'width': 'device-width',
+  },
+
   'html, body, #main': {
     'width': '100%',
     'height': '100%',
