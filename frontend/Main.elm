@@ -1,9 +1,10 @@
-import Components.Songbook exposing (init, update, view)
+import Components.Songbook as Songbook exposing ( init, update, view )
 import StartApp
-import Html
-import Effects exposing (Never)
+import Effects exposing ( Never )
 import Task
+import Html
 
+app : StartApp.App Songbook.Model
 app =
   StartApp.start
     { init = init
@@ -15,6 +16,7 @@ app =
     , inputs = []
     }
 
+main : Signal Html.Html
 main =
   app.html
 
