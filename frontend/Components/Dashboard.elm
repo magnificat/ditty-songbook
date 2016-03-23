@@ -106,12 +106,10 @@ view address model =
             then FoldCategories
             else UnfoldCategory category.id
         ]
-        [ text <| toString category.id ++ ". "
-        , span
-          [ class "dashboard’s-category-title-content"
-          ]
-          [ text category.name
-          ]
+        [ text
+          <| toString category.id
+          ++ ". "
+          ++ category.name
         ]
 
     renderSongs category =

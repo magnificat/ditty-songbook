@@ -87,9 +87,6 @@ module.exports = {
 
   '.dashboard’s-category-title': {
     'line-height': u.inRem(60),
-  },
-
-  '.dashboard’s-category-title-content': {
     'font-size': u.inRem(14),
     'text-transform': 'uppercase',
     'letter-spacing': '0.07em',
