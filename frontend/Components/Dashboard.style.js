@@ -44,6 +44,10 @@ module.exports = {
     ].join(' '),
   },
 
+  '.dashboard’s-category·unfolded': {
+    'background': 'red',
+  },
+
   [[
     '.dashboard’s-button',
     '.dashboard’s-button:focus',

@@ -1,7 +1,8 @@
 module Components.Dashboard where
 
 import Html exposing ( Html, div, h1, text, p, ul, li, a, button )
-import Html.Attributes exposing ( class, href )
+import Html.Attributes exposing ( class, href, classList )
+import Html.Events exposing ( onClick )
 import Effects exposing ( Effects )
 import Http
 import Json.Decode exposing
@@ -18,12 +19,16 @@ type alias Model =
   , subtitle : String
   , categories : Maybe (List Category)
   , songs : Maybe (List Song)
+  , unfoldedCategoryId : Maybe CategoryId
   }
 
 type alias Category =
-  { id : Int
+  { id : CategoryId
   , name : String
   }
+
+type alias CategoryId =
+  Int
 
 type alias Song =
   { number : String
@@ -36,6 +41,7 @@ init { title, subtitle } =
     , subtitle = subtitle
     , categories = Just []
     , songs = Just []
+    , unfoldedCategoryId = Nothing
     }
   , Effects.batch
     [ getCategories
@@ -49,23 +55,36 @@ init { title, subtitle } =
 type Action
   = RenderCategories (Maybe (List Category))
   | CacheSongs (Maybe (List Song))
+  | UnfoldCategory CategoryId
+  | FoldCategories
 
 update : Action -> Model -> (Model, Effects Action)
 update action model =
-  case action of
-    RenderCategories categories ->
-      ( { model
+  let
+    static model' =
+      (model', Effects.none)
+
+  in
+    static <| case action of
+      RenderCategories categories ->
+        { model
         | categories = categories
         }
-      , Effects.none
-      )
 
-    CacheSongs songs ->
-      ( { model
+      CacheSongs songs ->
+        { model
         | songs = songs
         }
-      , Effects.none
-      )
+
+      UnfoldCategory id ->
+        { model
+        | unfoldedCategoryId = Just id
+        }
+
+      FoldCategories ->
+        { model
+        | unfoldedCategoryId = Nothing
+        }
 
 
 -- VIEW
@@ -73,11 +92,22 @@ update action model =
 view : Signal.Address Action -> Model -> Html
 view address model =
   let
+    isCurrent category =
+      model.unfoldedCategoryId == Just category.id
+
     renderCategory category =
-      li [ class "dashboard’s-category" ]
-        [ button [ class
-          <| "dashboard’s-button"
-          ++ " dashboard’s-category-title"
+      li [ classList
+        [ ("dashboard’s-category", True)
+        , ("dashboard’s-category·unfolded", isCurrent category)
+        ] ]
+        [ button
+          [ class
+            <| "dashboard’s-button"
+            ++ " dashboard’s-category-title"
+          , onClick address <|
+            if isCurrent category
+              then FoldCategories
+              else UnfoldCategory category.id
           ]
           [ text
             <| toString category.id
