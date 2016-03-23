@@ -12,7 +12,7 @@ module.exports = {
     'background-color': '#d5dbdb',
     'font-size': u.inRem(18),
     'font-family': 'serif',
-    'color': 'rgba(0, 0, 0, 0.4)',
+    'color': u.primaryColorOpacity(0.5),
   },
 
   '[data-fonts-loaded] .songbook': {
@@ -23,6 +23,6 @@ module.exports = {
     '[data-fonts-loaded] .songbook',
     '[data-fonts-failed-to-load] .songbook',
   ].join(', ')]: {
-    'color': 'rgba(0, 0, 0, 0.87)',
+    'color': u.primaryColorOpacity(1),
   },
 };

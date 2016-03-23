@@ -1,6 +1,6 @@
 module Components.Dashboard where
 
-import Html exposing ( Html, div, h1, text, p, ul, li, a )
+import Html exposing ( Html, div, h1, text, p, ul, li, a, button )
 import Html.Attributes exposing ( class, href )
 import Effects exposing ( Effects )
 import Http
@@ -60,10 +60,15 @@ view address model =
   let
     renderCategory category =
       li [ class "dashboard’s-category" ]
-        [ text
-          <| toString category.id
-          ++ ". "
-          ++ category.name
+        [ button [ class
+          <| "dashboard’s-button"
+          ++ " dashboard’s-category-title"
+          ]
+          [ text
+            <| toString category.id
+            ++ ". "
+            ++ category.name
+          ]
         ]
 
     categoriesOrError =

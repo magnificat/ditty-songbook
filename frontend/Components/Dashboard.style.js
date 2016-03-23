@@ -1,7 +1,10 @@
 const u = require('../styles/utils');
 const c = require('../styles/config');
+const colors = require('material-colors');
 
 const dashboardPadding = 20;
+const halfCategorySpacing = 5;
+const categoryBorderWidth = 5;
 
 module.exports = {
   '.dashboard': {
@@ -32,23 +35,48 @@ module.exports = {
   },
 
   '.dashboard’s-category': {
-    'position': 'relative',
     'line-height': u.inRem(40),
-    'padding': [
-      u.inRem(10),
+    'position': 'relative',
+    'margin': [
       '0',
+      u.inRem(-dashboardPadding),
+      u.inRem(halfCategorySpacing * 2),
     ].join(' '),
   },
 
-  '.dashboard’s-category::before': {
-    'content': '" "',
+  [[
+    '.dashboard’s-button',
+    '.dashboard’s-button:focus',
+  ].join(', ')]: {
     'display': 'block',
-    'position': 'absolute',
-    'top': u.inRem(5),
-    'bottom': u.inRem(5),
-    'left': u.inRem(-dashboardPadding),
-    'width': u.inRem(5),
-    'background': 'currentColor',
-    'opacity': '0.6',
+    'width': '100%',
+    'padding': [
+      '0',
+      u.inRem(dashboardPadding),
+      '0',
+      u.inRem(dashboardPadding - categoryBorderWidth),
+    ].join(' '),
+    'border-left': [
+      u.inRem(categoryBorderWidth),
+      'solid',
+      u.primaryColorOpacity(0.7),
+    ].join(' '),
+  },
+
+  '.dashboard’s-button:hover': {
+    'background': u.primaryColorOpacity(0.1),
+  },
+
+  '.dashboard’s-button:active': {
+    'background': u.primaryColorOpacity(0.2),
+  },
+
+  '.dashboard’s-button:focus': {
+    'outline': 'none',
+    'border-left-color': colors.cyan[700],
+  },
+
+  '.dashboard’s-category-title': {
+    'line-height': u.inRem(60),
   },
 };
