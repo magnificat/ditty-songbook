@@ -12,7 +12,7 @@
     "material-colors": "^1.0.0",
     "npm": "^3.8.1",
     "object-merge": "^2.5.1",
-    "parse-ditty": "^1.0.3",
+    "parse-ditty": "^1.1.0",
     "style-loader": "^0.13.0",
     "surge": "^0.17.7",
     "webpack": "^1.12.14",
