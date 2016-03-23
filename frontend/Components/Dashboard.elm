@@ -13,18 +13,21 @@ import Task
 
 -- MODEL
 
+type alias Model =
+  { title : String
+  , subtitle : String
+  , categories : Maybe (List Category)
+  , songs : Maybe (List Song)
+  }
+
 type alias Category =
   { id : Int
   , name : String
   }
 
-type alias Categories =
-  List Category
-
-type alias Model =
-  { title : String
-  , subtitle : String
-  , categories : Maybe Categories
+type alias Song =
+  { number : String
+  , title : String
   }
 
 init : { title: String, subtitle: String } -> (Model, Effects Action)
@@ -32,15 +35,20 @@ init { title, subtitle } =
   ( { title = title
     , subtitle = subtitle
     , categories = Just []
+    , songs = Just []
     }
-  , getCategories
+  , Effects.batch
+    [ getCategories
+    , getSongs
+    ]
   )
 
 
 -- UPDATE
 
 type Action
-  = RenderCategories (Maybe Categories)
+  = RenderCategories (Maybe (List Category))
+  | CacheSongs (Maybe (List Song))
 
 update : Action -> Model -> (Model, Effects Action)
 update action model =
@@ -48,6 +56,13 @@ update action model =
     RenderCategories categories ->
       ( { model
         | categories = categories
+        }
+      , Effects.none
+      )
+
+    CacheSongs songs ->
+      ( { model
+        | songs = songs
         }
       , Effects.none
       )
@@ -115,3 +130,16 @@ category =
   succeed Category
     |: ("id" := int)
     |: ("name" := string)
+
+getSongs : Effects Action
+getSongs =
+  Http.get (list song) "/api/songs.json"
+    |> Task.toMaybe
+    |> Task.map CacheSongs
+    |> Effects.task
+
+song : Decoder Song
+song =
+  succeed Song
+    |: ("number" := string)
+    |: ("title" := string)
