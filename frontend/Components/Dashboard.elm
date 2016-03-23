@@ -1,14 +1,14 @@
 module Components.Dashboard where
 
-import Html exposing ( Html, div, h1, text, p, ul, li, a, button )
-import Html.Attributes exposing ( class, href, classList )
-import Html.Events exposing ( onClick )
-import Effects exposing ( Effects )
+import Html exposing (Html, div, h1, text, p, ul, li, a, button)
+import Html.Attributes exposing (class, href, classList)
+import Html.Events exposing (onClick)
+import Effects exposing (Effects)
 import Http
 import Json.Decode exposing
   ( Decoder, decodeValue, succeed, string, list, int, (:=)
   )
-import Json.Decode.Extra exposing ( (|:) )
+import Json.Decode.Extra exposing ((|:))
 import Task
 
 
@@ -96,10 +96,12 @@ view address model =
       model.unfoldedCategoryId == Just category.id
 
     renderCategory category =
-      li [ classList
-        [ ("dashboard’s-category", True)
-        , ("dashboard’s-category·unfolded", isCurrent category)
-        ] ]
+      li
+        [ classList
+          [ ("dashboard’s-category", True)
+          , ("dashboard’s-category·unfolded", isCurrent category)
+          ]
+        ]
         [ button
           [ class
             <| "dashboard’s-button"
@@ -119,11 +121,15 @@ view address model =
     categoriesOrError =
       case model.categories of
         Just categories ->
-          ul [ class "dashboard’s-categories" ]
+          ul
+            [ class "dashboard’s-categories"
+            ]
             <| List.map renderCategory categories
 
         Nothing ->
-          p [ class "dashboard’s-categories" ]
+          p
+            [ class "dashboard’s-categories"
+            ]
             [ text
               <| "Oops! We run into a problem when trying to fetch "
               ++ "song categories. Try clearing the cache and reloading "
@@ -135,11 +141,17 @@ view address model =
             ]
 
   in
-    div [ class "dashboard" ]
-      [ h1 [ class "dashboard’s-title" ]
+    div
+      [ class "dashboard"
+      ]
+      [ h1
+        [ class "dashboard’s-title"
+        ]
         [ text model.title
         ]
-      , p [ class "dashboard’s-subtitle" ]
+      , p
+        [ class "dashboard’s-subtitle"
+        ]
         [ text model.subtitle
         ]
       , categoriesOrError

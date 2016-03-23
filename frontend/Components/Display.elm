@@ -1,7 +1,7 @@
 module Components.Display where
 
-import Html exposing ( Html, div )
-import Html.Attributes exposing ( class )
+import Html exposing (Html, div)
+import Html.Attributes exposing (class)
 
 
 -- MODEL
@@ -28,4 +28,6 @@ update action model =
 
 view : Signal.Address Action -> Model -> Html
 view address model =
-  div [ class "display" ] []
+  div
+    [ class "display"
+    ] []
