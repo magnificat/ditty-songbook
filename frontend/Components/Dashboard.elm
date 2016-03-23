@@ -1,6 +1,6 @@
 module Components.Dashboard where
 
-import Html exposing (Html, div, h1, text, p, ul, li, a, button)
+import Html exposing (Html, div, h1, text, p, ul, li, a, button, span)
 import Html.Attributes exposing (class, href, classList)
 import Html.Events exposing (onClick)
 import Effects exposing (Effects)
@@ -33,6 +33,7 @@ type alias CategoryId =
 type alias Song =
   { number : String
   , title : String
+  , category : CategoryId
   }
 
 init : { title: String, subtitle: String } -> (Model, Effects Action)
@@ -92,31 +93,73 @@ update action model =
 view : Signal.Address Action -> Model -> Html
 view address model =
   let
-    isCurrent category =
+    isUnfolded category =
       model.unfoldedCategoryId == Just category.id
+
+    categoryButton category =
+      button
+        [ class
+          <| "dashboard’s-button"
+          ++ " dashboard’s-category-title"
+        , onClick address <|
+          if isUnfolded category
+            then FoldCategories
+            else UnfoldCategory category.id
+        ]
+        [ text <| toString category.id ++ ". "
+        , span
+          [ class "dashboard’s-category-title-content"
+          ]
+          [ text category.name
+          ]
+        ]
+
+    renderSongs category =
+      case model.songs of
+        Just songs ->
+          ul
+            []
+            ( List.filter (\song -> song.category == category.id) songs
+                |> List.map renderSong
+            )
+
+        Nothing ->
+          p
+            []
+            <| errorText "loading songs"
+
+    errorText message =
+      [ text
+        <| "Oops! We run into a problem when " ++ message ++ ". Try clearing "
+        ++ "the cache and reloading the page. If that doesn’t work, "
+      , a [ href "https://github.com/magnificat/magnificat.surge.sh/issues" ]
+          [ text "let us know"
+          ]
+      , text "!"
+      ]
+
+    renderSong song =
+      li
+        [ class "dashboard’s-song"
+        ]
+        [ button
+          [ class "dashboard’s-button"
+          ]
+          [ text <| song.number ++ " " ++ song.title
+          ]
+        ]
 
     renderCategory category =
       li
         [ classList
           [ ("dashboard’s-category", True)
-          , ("dashboard’s-category·unfolded", isCurrent category)
+          , ("dashboard’s-category·unfolded", isUnfolded category)
           ]
         ]
-        [ button
-          [ class
-            <| "dashboard’s-button"
-            ++ " dashboard’s-category-title"
-          , onClick address <|
-            if isCurrent category
-              then FoldCategories
-              else UnfoldCategory category.id
-          ]
-          [ text
-            <| toString category.id
-            ++ ". "
-            ++ category.name
-          ]
-        ]
+        <| [categoryButton category]
+        ++ if isUnfolded category
+          then [renderSongs category]
+          else []
 
     categoriesOrError =
       case model.categories of
@@ -130,15 +173,7 @@ view address model =
           p
             [ class "dashboard’s-categories"
             ]
-            [ text
-              <| "Oops! We run into a problem when trying to fetch "
-              ++ "song categories. Try clearing the cache and reloading "
-              ++ "the page. If that doesn’t work, "
-            , a [ href "https://github.com/magnificat/magnificat.surge.sh/issues" ]
-                [ text "let us know"
-                ]
-            , text "!"
-            ]
+            <| errorText "trying to fetch song categories"
 
   in
     div
@@ -185,3 +220,4 @@ song =
   succeed Song
     |: ("number" := string)
     |: ("title" := string)
+    |: ("category" := int)

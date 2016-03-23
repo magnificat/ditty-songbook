@@ -3,12 +3,16 @@ const c = require('../styles/config');
 const colors = require('material-colors');
 
 const dashboardPadding = 20;
-const halfCategorySpacing = 5;
+const halfCategorySpacing = 10;
 const categoryBorderWidth = 5;
 
 module.exports = {
   '.dashboard': {
-    'padding': u.inRem(dashboardPadding),
+    'padding': [
+      u.inRem(dashboardPadding),
+      u.inRem(dashboardPadding),
+      u.inRem(150),
+    ].join(' '),
     'width': u.inRem(c.navBarWidth),
     'height': '100%',
     'background': [
@@ -16,6 +20,11 @@ module.exports = {
       'url(/images/background.prerender.png)',
     ].join(','),
     'background-size': 'cover',
+    'overflow': 'auto',
+  },
+
+  '.dashboard::-webkit-scrollbar': {
+    'display': 'none',
   },
 
   '.dashboard’s-title': {
@@ -42,10 +51,6 @@ module.exports = {
       u.inRem(-dashboardPadding),
       u.inRem(halfCategorySpacing * 2),
     ].join(' '),
-  },
-
-  '.dashboard’s-category·unfolded': {
-    'background': 'red',
   },
 
   [[
@@ -82,5 +87,24 @@ module.exports = {
 
   '.dashboard’s-category-title': {
     'line-height': u.inRem(60),
+  },
+
+  '.dashboard’s-category-title-content': {
+    'font-size': u.inRem(14),
+    'text-transform': 'uppercase',
+    'letter-spacing': '0.07em',
+  },
+
+  '.dashboard’s-song': {
+    'display': 'block',
+    'overflow': 'hidden',
+    'transition': 'line-height 0.2s ease-out',
+  },
+
+  [
+    '.dashboard’s-category:not(.dashboard’s-category·unfolded)'
+    + ' .dashboard’s-song'
+  ]: {
+    'line-height': '0rem',
   },
 };
