@@ -1330,6 +1330,11 @@
       "from": "lru-cache@>=4.0.0 <5.0.0",
       "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-4.0.0.tgz"
     },
+    "material-colors": {
+      "version": "1.0.0",
+      "from": "material-colors@latest",
+      "resolved": "https://registry.npmjs.org/material-colors/-/material-colors-1.0.0.tgz"
+    },
     "media-typer": {
       "version": "0.3.0",
       "from": "media-typer@0.3.0",
