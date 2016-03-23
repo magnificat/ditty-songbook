@@ -1,7 +1,7 @@
 module Components.Songbook where
 
-import Html exposing ( Html, div, h1, text, p )
-import Html.Attributes exposing ( class )
+import Html exposing (Html, div, h1, text, p)
+import Html.Attributes exposing (class)
 import Effects exposing (Effects)
 import Signal
 
@@ -62,7 +62,9 @@ update action model =
 
 view : Signal.Address Action -> Model -> Html
 view address model =
-  div [ class "songbook" ]
+  div
+    [ class "songbook"
+    ]
     [ Dashboard.view (Signal.forwardTo address DashboardAction) model.dashboard
     , Display.view (Signal.forwardTo address DisplayAction) ()
     ]

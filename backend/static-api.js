@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 const ditty = require('parse-ditty');
+const pick = require('1-liners/pick');
 
 const dataPath = `${__dirname}/../data`;
 const rawCategories = fs.readdirSync(dataPath);
@@ -30,7 +31,7 @@ const songsData = categoryDirs.reduce((result, category) => {
   const parsedSongs = songFiles.map(filename => {
     const rawSong = fs.readFileSync(`${categoryPath}/${filename}`, 'utf8');
     return Object.assign({},
-      ditty(rawSong),
+      pick(['number', 'title', 'blocks'], ditty(rawSong)),
       { category: category.id }
     );
   });
