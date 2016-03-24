@@ -5,8 +5,8 @@ const colors = require('material-colors');
 const dashboardPadding = 20;
 const halfCategorySpacing = 10;
 const categoryBorderWidth = 5;
-const transitionDuration = '200ms';
-const transitionFunction = 'cubic-bezier(0, 0.8, 0, 1)';
+const transitionDuration = '167ms';
+const transitionFunction = 'cubic-bezier(0, 0.6, 0, 0.8)';
 
 module.exports = {
   '.dashboard': {
