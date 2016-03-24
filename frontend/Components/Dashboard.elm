@@ -123,7 +123,8 @@ view address model =
 
         Nothing ->
           p
-            []
+            [ class "dashboard’s-song dashboard’s-button"
+            ]
             <| errorText "loading songs"
 
     errorText message =

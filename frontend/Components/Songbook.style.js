@@ -1,4 +1,5 @@
 const u = require('../styles/utils');
+const colors = require('material-colors');
 
 module.exports = {
   '.songbook': {
@@ -24,5 +25,9 @@ module.exports = {
     '[data-fonts-failed-to-load] .songbook',
   ].join(', ')]: {
     'color': u.primaryColorOpacity(1),
+  },
+
+  '.songbook a:not([class])': {
+    'color': colors.cyan[700],
   },
 };
