@@ -5,6 +5,8 @@ const colors = require('material-colors');
 const dashboardPadding = 20;
 const halfCategorySpacing = 10;
 const categoryBorderWidth = 5;
+const transitionDuration = '200ms';
+const transitionFunction = 'cubic-bezier(0, 0.8, 0, 1)';
 
 module.exports = {
   '.dashboard': {
@@ -86,7 +88,12 @@ module.exports = {
   '.dashboard’s-song': {
     'display': 'block',
     'overflow': 'hidden',
-    'transition': 'line-height 0.2s ease-out',
+    'color': u.primaryColorOpacity(1),
+    'transition': [
+      `line-height ${transitionDuration} ${transitionFunction}`,
+      `color ${transitionDuration} ${transitionFunction}`,
+      `visibility ${transitionDuration} step-start`,
+    ].join(', '),
   },
 
   [
@@ -94,5 +101,12 @@ module.exports = {
     + ' .dashboard’s-song'
   ]: {
     'line-height': '0rem',
+    'visibility': 'hidden',
+    'color': u.primaryColorOpacity(0),
+    'transition-timing-function': [
+      transitionFunction,
+      transitionFunction,
+      'step-end',
+    ].join(', '),
   },
 };

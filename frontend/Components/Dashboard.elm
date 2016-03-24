@@ -154,10 +154,9 @@ view address model =
           , ("dashboard’s-category·unfolded", isUnfolded category)
           ]
         ]
-        <| [categoryButton category]
-        ++ if isUnfolded category
-          then [renderSongs category]
-          else []
+        [ categoryButton category
+        , renderSongs category
+        ]
 
     categoriesOrError =
       case model.categories of
