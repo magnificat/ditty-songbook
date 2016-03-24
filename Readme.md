@@ -27,7 +27,8 @@ At the moment, it’s an experiment – I’m doing this to test out new technol
 * [x] Static JSON API service (See [magnificat.surge.sh/api/categories.json](https://magnificat.surge.sh/api/categories.json),  [magnificat.surge.sh/api/songs.json](https://magnificat.surge.sh/api/songs.json) and the [`data/`](./data) directory)
 * [x] CI integration with github data (The data and logic is updated after every push via [travis-ci.org/magnificat/magnificat.surge.sh](https://travis-ci.org/magnificat/magnificat.surge.sh))
 * [x] Lightning-fast loading of fonts and images
-* [ ] Navigation
+* [x] Navigation
+* [ ] Routing
 * [ ] Full-screen lyrics display optimized for viewing on mobile devices and displaying with a projector
 * [ ] Swipe navigation
 * [ ] Offline installation
