@@ -8,18 +8,9 @@ const categoryBorderWidth = 5;
 
 module.exports = {
   '.dashboard': {
-    'padding': [
-      u.inRem(dashboardPadding),
-      u.inRem(dashboardPadding),
-      u.inRem(150),
-    ].join(' '),
+    'padding': u.inRem(dashboardPadding),
     'width': u.inRem(c.navBarWidth),
     'height': '100%',
-    'background': [
-      'url(/images/background.jpg)',
-      'url(/images/background.prerender.png)',
-    ].join(','),
-    'background-size': 'cover',
     'overflow': 'auto',
   },
 
