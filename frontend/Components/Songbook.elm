@@ -4,8 +4,15 @@ import Html exposing (Html, div, h1, text, p)
 import Html.Attributes exposing (class)
 import Effects exposing (Effects)
 import Signal
+import Effects exposing (Effects)
+import Http
+import Json.Decode exposing
+  ( Decoder, decodeValue, succeed, string, list, int, (:=)
+  )
+import Json.Decode.Extra exposing ((|:))
+import Task
 
-import Components.Dashboard as Dashboard
+import Components.Dashboard as Dashboard exposing (Category, Song)
 import Components.Display as Display
 
 
@@ -14,48 +21,64 @@ import Components.Display as Display
 type alias Model =
   { title : String
   , subtitle : String
+  , categories : Maybe (List Category)
+  , songs : Maybe (List Song)
   , dashboard : Dashboard.Model
   }
 
-init : { title : String, subtitle : String } -> (Model, Effects Action)
+init :
+  { title : String
+  , subtitle : String
+  } -> (Model, Effects Action)
 init stub =
   let
-    (dashboard, dashboardFx) =
-      Dashboard.init stub
+    model =
+      { title = stub.title
+      , subtitle = stub.subtitle
+      , categories = Nothing
+      , songs = Nothing
+      , dashboard = Dashboard.init stub
+      }
+
+    effects =
+      Effects.batch
+        [ getCategories
+        , getSongs
+        ]
 
   in
-    ( Model stub.title stub.subtitle dashboard
-    , Effects.batch
-        [ Effects.map DashboardAction dashboardFx
-        ]
-    )
+    (model, effects)
 
 
 -- UPDATE
 
 type Action
-  = DashboardAction Dashboard.Action
-  | DisplayAction Display.Action
+  = RenderCategories (Maybe (List Category))
+  | CacheSongs (Maybe (List Song))
+  | DashboardAction Dashboard.Action
 
 update : Action -> Model -> (Model, Effects Action)
 update action model =
-  case action of
-    DashboardAction dashboardAction ->
-      let
-        (dashboardModel, fx) =
-          Dashboard.update dashboardAction model.dashboard
+  ( case action of
+      RenderCategories categories ->
+        { model
+        | categories = categories
+        , dashboard = Dashboard.injectCategories categories model.dashboard
+        }
 
-      in
-        ( { model
-          | dashboard = dashboardModel
-          }
-        , Effects.map DashboardAction fx
-        )
+      CacheSongs songs ->
+        { model
+        | songs = songs
+        , dashboard = Dashboard.injectSongs songs model.dashboard
+        }
 
-    DisplayAction displayAction ->
-      ( model
-      , Effects.none
-      )
+      DashboardAction dashboardAction ->
+        { model
+        | dashboard = Dashboard.update dashboardAction model.dashboard
+        }
+
+  , Effects.none
+  )
 
 
 -- VIEW
@@ -66,5 +89,35 @@ view address model =
     [ class "songbook"
     ]
     [ Dashboard.view (Signal.forwardTo address DashboardAction) model.dashboard
-    , Display.view (Signal.forwardTo address DisplayAction) ()
+    , Display.view
     ]
+
+
+-- EFFECTS
+
+getCategories : Effects Action
+getCategories =
+  Http.get (list category) "/api/categories.json"
+    |> Task.toMaybe
+    |> Task.map RenderCategories
+    |> Effects.task
+
+category : Decoder Category
+category =
+  succeed Category
+    |: ("id" := int)
+    |: ("name" := string)
+
+getSongs : Effects Action
+getSongs =
+  Http.get (list song) "/api/songs.json"
+    |> Task.toMaybe
+    |> Task.map CacheSongs
+    |> Effects.task
+
+song : Decoder Song
+song =
+  succeed Song
+    |: ("number" := string)
+    |: ("title" := string)
+    |: ("category" := int)
