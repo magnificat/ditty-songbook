@@ -8,21 +8,17 @@ import String
 -- MODEL
 
 type alias Model =
-  { currentSong : Maybe Song
+  { currentSong : Maybe SongContent
   }
 
-type alias Song =
+type alias SongContent =
   { blocks : List SongBlock
   }
 
 type alias SongBlock =
-  { blockType : SongBlockType
+  { blockType : String
   , lyrics : String
   }
-
-type SongBlockType
-  = Stanza
-  | Refrain
 
 init : Model
 init =
@@ -49,7 +45,7 @@ view model =
       in p
         [ classList
           [ ("display’s-song-block", True)
-          , ("display’s-song-block·type»refrain", block.blockType == Refrain)
+          , ("display’s-song-block·type»refrain", block.blockType == "refrain")
           ]
         ]
         <| List.map renderLine lines

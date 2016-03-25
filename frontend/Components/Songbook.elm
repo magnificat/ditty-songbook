@@ -12,8 +12,8 @@ import Json.Decode exposing
 import Json.Decode.Extra exposing ((|:))
 import Task
 
-import Components.Dashboard as Dashboard exposing (Category, Song)
-import Components.Display as Display exposing (SongBlockType(Stanza, Refrain))
+import Components.Dashboard as Dashboard exposing (Category, CategoryId)
+import Components.Display as Display exposing (SongBlock)
 
 
 -- MODEL
@@ -25,6 +25,14 @@ type alias Model =
   , songs : Maybe (List Song)
   , dashboard : Dashboard.Model
   , display : Display.Model
+  }
+
+type alias Song =
+  { number : String
+  , title : String
+  , category : CategoryId
+  , slug : String
+  , blocks : List SongBlock
   }
 
 init :
@@ -55,13 +63,16 @@ init stub =
 -- UPDATE
 
 type Action
-  = RenderCategories (Maybe (List Category))
+  = UpdateSong (Maybe String)
+  | NoOp
+  | RenderCategories (Maybe (List Category))
   | CacheSongs (Maybe (List Song))
   | DashboardAction Dashboard.Action
 
 update : Action -> Model -> (Model, Effects Action)
 update action model =
-  ( case action of
+  let
+    model = case action of
       RenderCategories categories ->
         { model
         | categories = categories
@@ -71,7 +82,9 @@ update action model =
       CacheSongs songs ->
         { model
         | songs = songs
-        , dashboard = Dashboard.injectSongs songs model.dashboard
+        , dashboard = Dashboard.injectSongs
+          (Maybe.map (List.map toSongData) songs)
+          model.dashboard
         }
 
       DashboardAction dashboardAction ->
@@ -79,8 +92,14 @@ update action model =
         | dashboard = Dashboard.update dashboardAction model.dashboard
         }
 
-  , Effects.none
-  )
+    toSongData song =
+      { number = song.number
+      , title = song.title
+      , category = song.category
+      }
+
+  in
+    (model, Effects.none)
 
 
 -- VIEW
@@ -123,3 +142,11 @@ song =
     |: ("number" := string)
     |: ("title" := string)
     |: ("category" := int)
+    |: ("slug" := string)
+    |: ("blocks" := list songBlock)
+
+songBlock : Decoder SongBlock
+songBlock =
+  succeed SongBlock
+    |: ("type" := string)
+    |: ("lyrics" := string)

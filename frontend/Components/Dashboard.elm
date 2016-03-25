@@ -11,7 +11,7 @@ type alias Model =
   { title : String
   , subtitle : String
   , categories : Maybe (List Category)
-  , songs : Maybe (List Song)
+  , songs : Maybe (List SongData)
   , unfoldedCategoryId : Maybe CategoryId
   }
 
@@ -23,7 +23,7 @@ type alias Category =
 type alias CategoryId =
   Int
 
-type alias Song =
+type alias SongData =
   { number : String
   , title : String
   , category : CategoryId
@@ -47,7 +47,7 @@ injectCategories categories model =
   | categories = categories
   }
 
-injectSongs : Maybe (List Song) -> Model -> Model
+injectSongs : Maybe (List SongData) -> Model -> Model
 injectSongs songs model =
   { model
   | songs = songs
