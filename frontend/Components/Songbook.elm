@@ -36,7 +36,8 @@ type alias Song =
   }
 
 init :
-  { title : String
+  { a
+  | title : String
   , subtitle : String
   } -> (Model, Effects Action)
 init stub =
@@ -64,7 +65,6 @@ init stub =
 
 type Action
   = UpdateSong (Maybe String)
-  | NoOp
   | RenderCategories (Maybe (List Category))
   | CacheSongs (Maybe (List Song))
   | DashboardAction Dashboard.Action
@@ -77,9 +77,6 @@ update action model =
         { model
         | currentSongSlug = songSlug
         }
-
-      NoOp ->
-        model
 
       RenderCategories categories ->
         { model
