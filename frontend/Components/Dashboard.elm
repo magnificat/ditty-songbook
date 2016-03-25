@@ -30,7 +30,8 @@ type alias SongData =
   }
 
 init :
-  { title : String
+  { a
+  | title : String
   , subtitle : String
   } -> Model
 init stub =

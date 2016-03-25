@@ -24,7 +24,7 @@ type alias Model =
   , categories : Maybe (List Category)
   , songs : Maybe (List Song)
   , dashboard : Dashboard.Model
-  , display : Display.Model
+  , currentSongSlug : Maybe String
   }
 
 type alias Song =
@@ -46,8 +46,8 @@ init stub =
       , subtitle = stub.subtitle
       , categories = Nothing
       , songs = Nothing
+      , currentSongSlug = Just "albowiem-tak-bog"
       , dashboard = Dashboard.init stub
-      , display = Display.Model Nothing
       }
 
     effects =
@@ -73,6 +73,14 @@ update : Action -> Model -> (Model, Effects Action)
 update action model =
   let
     model = case action of
+      UpdateSong songSlug ->
+        { model
+        | currentSongSlug = songSlug
+        }
+
+      NoOp ->
+        model
+
       RenderCategories categories ->
         { model
         | categories = categories
@@ -106,12 +114,34 @@ update action model =
 
 view : Signal.Address Action -> Model -> Html
 view address model =
-  div
-    [ class "songbook"
-    ]
-    [ Dashboard.view (Signal.forwardTo address DashboardAction) model.dashboard
-    , Display.view model.display
-    ]
+  let
+    currentSongContent : Maybe Display.SongContent
+    currentSongContent =
+      Maybe.map
+        (\song -> { blocks = song.blocks })
+        currentSong
+
+    currentSong : Maybe Song
+    currentSong =
+      Maybe.map (List.filter isCurrent) model.songs
+        `Maybe.andThen` List.head
+
+    isCurrent : Song -> Bool
+    isCurrent song =
+      case model.currentSongSlug of
+        Just slug ->
+          song.slug == slug
+
+        Nothing ->
+          False
+
+  in
+    div
+      [ class "songbook"
+      ]
+      [ Dashboard.view (Signal.forwardTo address DashboardAction) model.dashboard
+      , Display.view <| Display.Model currentSongContent
+      ]
 
 
 -- EFFECTS
