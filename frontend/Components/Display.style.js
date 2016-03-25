@@ -8,11 +8,10 @@ module.exports = {
     'position': 'absolute',
     'top': '0',
     'left': u.inRem(c.navBarWidth),
-
     'height': '100%',
     'width': '100%',
-
     'background': 'black',
+    'color': 'white',
   },
 
   '.display::before': {
@@ -23,7 +22,6 @@ module.exports = {
     'left': '0',
     'bottom': u.inRem(-shadowBlur),
     'right': '0',
-
     'box-shadow': `0 0 ${u.inRem(shadowBlur)} black`,
   },
 };

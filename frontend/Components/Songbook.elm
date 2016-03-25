@@ -38,6 +38,7 @@ init stub =
       , categories = Nothing
       , songs = Nothing
       , dashboard = Dashboard.init stub
+      , display = Display.Model Nothing
       }
 
     effects =
@@ -89,7 +90,7 @@ view address model =
     [ class "songbook"
     ]
     [ Dashboard.view (Signal.forwardTo address DashboardAction) model.dashboard
-    , Display.view
+    , Display.view model.display
     ]
 
 
