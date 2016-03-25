@@ -13,7 +13,7 @@ import Json.Decode.Extra exposing ((|:))
 import Task
 
 import Components.Dashboard as Dashboard exposing (Category, Song)
-import Components.Display as Display
+import Components.Display as Display exposing (SongBlockType(Stanza, Refrain))
 
 
 -- MODEL
@@ -24,6 +24,7 @@ type alias Model =
   , categories : Maybe (List Category)
   , songs : Maybe (List Song)
   , dashboard : Dashboard.Model
+  , display : Display.Model
   }
 
 init :

@@ -1,7 +1,7 @@
 module Components.Display where
 
 import Html exposing (Html, div, text, p, br)
-import Html.Attributes exposing (class)
+import Html.Attributes exposing (class, classList)
 import String
 
 
@@ -16,8 +16,13 @@ type alias Song =
   }
 
 type alias SongBlock =
-  { lyrics : String
+  { blockType : SongBlockType
+  , lyrics : String
   }
+
+type SongBlockType
+  = Stanza
+  | Refrain
 
 init : Model
 init =
@@ -41,7 +46,12 @@ view model =
     renderSongBlock block =
       let
         lines = String.split "\n" block.lyrics
-      in p []
+      in p
+        [ classList
+          [ ("display’s-song-block", True)
+          , ("display’s-song-block·type»refrain", block.blockType == Refrain)
+          ]
+        ]
         <| List.map renderLine lines
 
     renderLine line =
