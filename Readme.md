@@ -30,6 +30,7 @@ At the moment, it’s an experiment – I’m doing this to test out new technol
 * [x] Navigation
 * [ ] Routing
 * [ ] Full-screen lyrics display optimized for viewing on mobile devices and displaying with a projector
+* [ ] Better handling of 404 errors
 * [ ] Swipe navigation
 * [ ] Offline installation
 * [ ] “Add to home screen”
