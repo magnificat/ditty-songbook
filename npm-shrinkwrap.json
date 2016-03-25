@@ -3175,6 +3175,11 @@
       "from": "spawn-sync@1.0.13",
       "resolved": "https://registry.npmjs.org/spawn-sync/-/spawn-sync-1.0.13.tgz"
     },
+    "speakingurl": {
+      "version": "9.0.0",
+      "from": "speakingurl@latest",
+      "resolved": "https://registry.npmjs.org/speakingurl/-/speakingurl-9.0.0.tgz"
+    },
     "split": {
       "version": "0.3.1",
       "from": "split@0.3.1",
