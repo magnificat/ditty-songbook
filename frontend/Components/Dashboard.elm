@@ -3,13 +3,6 @@ module Components.Dashboard where
 import Html exposing (Html, div, h1, text, p, ul, li, a, button, span)
 import Html.Attributes exposing (class, href, classList)
 import Html.Events exposing (onClick)
-import Effects exposing (Effects)
-import Http
-import Json.Decode exposing
-  ( Decoder, decodeValue, succeed, string, list, int, (:=)
-  )
-import Json.Decode.Extra exposing ((|:))
-import Task
 
 
 -- MODEL
@@ -18,8 +11,9 @@ type alias Model =
   { title : String
   , subtitle : String
   , categories : Maybe (List Category)
-  , songs : Maybe (List Song)
+  , songs : Maybe (List SongData)
   , unfoldedCategoryId : Maybe CategoryId
+  , errorMessage : Maybe (List Html)
   }
 
 type alias Category =
@@ -30,62 +24,57 @@ type alias Category =
 type alias CategoryId =
   Int
 
-type alias Song =
+type alias SongData =
   { number : String
   , title : String
   , category : CategoryId
   }
 
-init : { title: String, subtitle: String } -> (Model, Effects Action)
-init { title, subtitle } =
-  ( { title = title
-    , subtitle = subtitle
-    , categories = Just []
-    , songs = Just []
-    , unfoldedCategoryId = Nothing
-    }
-  , Effects.batch
-    [ getCategories
-    , getSongs
-    ]
-  )
+init :
+  { a
+  | title : String
+  , subtitle : String
+  } -> Model
+init stub =
+  { title = stub.title
+  , subtitle = stub.subtitle
+  , categories = Just []
+  , songs = Just []
+  , unfoldedCategoryId = Nothing
+  , errorMessage = Nothing
+  }
+
+injectCategories : Maybe (List Category) -> Model -> Model
+injectCategories categories model =
+  { model
+  | categories = categories
+  }
+
+injectSongs : Maybe (List SongData) -> Model -> Model
+injectSongs songs model =
+  { model
+  | songs = songs
+  }
 
 
 -- UPDATE
 
 type Action
-  = RenderCategories (Maybe (List Category))
-  | CacheSongs (Maybe (List Song))
-  | UnfoldCategory CategoryId
+  = UnfoldCategory CategoryId
   | FoldCategories
 
-update : Action -> Model -> (Model, Effects Action)
+update : Action -> Model -> Model
 update action model =
-  let
-    static model' =
-      (model', Effects.none)
+  case action of
+    UnfoldCategory id ->
+      { model
+      | unfoldedCategoryId = Just id
+      }
 
-  in
-    static <| case action of
-      RenderCategories categories ->
-        { model
-        | categories = categories
-        }
-
-      CacheSongs songs ->
-        { model
-        | songs = songs
-        }
-
-      UnfoldCategory id ->
-        { model
-        | unfoldedCategoryId = Just id
-        }
-
-      FoldCategories ->
-        { model
-        | unfoldedCategoryId = Nothing
-        }
+    FoldCategories ->
+      { model
+      | unfoldedCategoryId = Nothing
+      }
 
 
 -- VIEW
@@ -160,14 +149,20 @@ view address model =
         ]
 
     categoriesOrError =
-      case model.categories of
-        Just categories ->
+      case (model.errorMessage, model.categories) of
+        (Just errorContents, _) ->
+          p
+            [ class "dashboard’s-categories"
+            ]
+            errorContents
+
+        (Nothing, Just categories) ->
           ul
             [ class "dashboard’s-categories"
             ]
             <| List.map renderCategory categories
 
-        Nothing ->
+        (Nothing, Nothing) ->
           p
             [ class "dashboard’s-categories"
             ]
@@ -189,33 +184,3 @@ view address model =
         ]
       , categoriesOrError
       ]
-
-
--- EFFECTS
-
-getCategories : Effects Action
-getCategories =
-  Http.get (list category) "/api/categories.json"
-    |> Task.toMaybe
-    |> Task.map RenderCategories
-    |> Effects.task
-
-category : Decoder Category
-category =
-  succeed Category
-    |: ("id" := int)
-    |: ("name" := string)
-
-getSongs : Effects Action
-getSongs =
-  Http.get (list song) "/api/songs.json"
-    |> Task.toMaybe
-    |> Task.map CacheSongs
-    |> Effects.task
-
-song : Decoder Song
-song =
-  succeed Song
-    |: ("number" := string)
-    |: ("title" := string)
-    |: ("category" := int)

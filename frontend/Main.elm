@@ -1,8 +1,12 @@
-import Components.Songbook as Songbook exposing ( init, update, view )
+import Components.Songbook as Songbook exposing
+  ( init, update, view, Route(DisplaySong)
+  )
 import StartApp
-import Effects exposing ( Never )
+import Effects exposing (Never)
 import Task
 import Html
+
+port initialPath : String
 
 app : StartApp.App Songbook.Model
 app =
@@ -10,6 +14,7 @@ app =
     { init = init
       { title = "magnificat"
       , subtitle = "Śpiewnik Equipes Notre Dame"
+      , route = DisplaySong "przybadz-plomieniu"
       }
     , update = update
     , view = view

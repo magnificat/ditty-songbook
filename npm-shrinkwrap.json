@@ -319,11 +319,6 @@
       "from": "clone@>=1.0.2 <2.0.0",
       "resolved": "https://registry.npmjs.org/clone/-/clone-1.0.2.tgz"
     },
-    "clone-function": {
-      "version": "1.0.6",
-      "from": "clone-function@>=1.0.1",
-      "resolved": "https://registry.npmjs.org/clone-function/-/clone-function-1.0.6.tgz"
-    },
     "code-point-at": {
       "version": "1.0.0",
       "from": "code-point-at@>=1.0.0 <2.0.0",
@@ -1188,8 +1183,8 @@
       "resolved": "https://registry.npmjs.org/jsonpointer/-/jsonpointer-2.0.0.tgz"
     },
     "jss-lite": {
-      "version": "1.1.1",
-      "from": "jss-lite@>=1.1.1 <2.0.0"
+      "version": "1.2.0",
+      "from": "jss-lite@latest"
     },
     "jss-lite-loader": {
       "version": "1.0.1",
@@ -2736,16 +2731,6 @@
       "from": "object-assign@>=4.0.1 <5.0.0",
       "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.0.1.tgz"
     },
-    "object-foreach": {
-      "version": "0.1.2",
-      "from": "object-foreach@>=0.1.2",
-      "resolved": "https://registry.npmjs.org/object-foreach/-/object-foreach-0.1.2.tgz"
-    },
-    "object-merge": {
-      "version": "2.5.1",
-      "from": "object-merge@*",
-      "resolved": "https://registry.npmjs.org/object-merge/-/object-merge-2.5.1.tgz"
-    },
     "object.omit": {
       "version": "2.0.0",
       "from": "object.omit@>=2.0.0 <3.0.0",
@@ -3174,6 +3159,11 @@
       "version": "1.0.13",
       "from": "spawn-sync@1.0.13",
       "resolved": "https://registry.npmjs.org/spawn-sync/-/spawn-sync-1.0.13.tgz"
+    },
+    "speakingurl": {
+      "version": "9.0.0",
+      "from": "speakingurl@latest",
+      "resolved": "https://registry.npmjs.org/speakingurl/-/speakingurl-9.0.0.tgz"
     },
     "split": {
       "version": "0.3.1",

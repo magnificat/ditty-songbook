@@ -1,33 +1,60 @@
 module Components.Display where
 
-import Html exposing (Html, div)
-import Html.Attributes exposing (class)
+import Html exposing (Html, div, text, p, br)
+import Html.Attributes exposing (class, classList)
+import String
 
 
 -- MODEL
 
 type alias Model =
-  ()
+  { currentSong : Maybe SongContent
+  }
 
-init : Model -> Model
-init model =
-  model
+type alias SongContent =
+  { blocks : List SongBlock
+  }
 
+type alias SongBlock =
+  { blockType : String
+  , lyrics : String
+  }
 
--- UPDATE
-
-type alias Action =
-  ()
-
-update : Action -> Model -> Model
-update action model =
-  model
+init : Model
+init =
+  { currentSong = Nothing
+  }
 
 
 -- VIEW
 
-view : Signal.Address Action -> Model -> Html
-view address model =
-  div
-    [ class "display"
-    ] []
+view : Model -> Html
+view model =
+  let
+    displayContents =
+      case model.currentSong of
+        Nothing ->
+          []
+
+        Just song ->
+          List.map renderSongBlock song.blocks
+
+    renderSongBlock block =
+      let
+        lines = String.split "\n" block.lyrics
+      in p
+        [ classList
+          [ ("display’s-song-block", True)
+          , ("display’s-song-block·type»refrain", block.blockType == "refrain")
+          ]
+        ]
+        <| List.map renderLine lines
+
+    renderLine line =
+      div [] [text line]
+
+  in
+    div
+      [ class "display"
+      ]
+      displayContents
