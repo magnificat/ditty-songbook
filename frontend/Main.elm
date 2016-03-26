@@ -1,5 +1,5 @@
 import Components.Songbook as Songbook exposing
-  ( init, update, view, Route(Home)
+  ( init, update, view, Route(DisplaySong)
   )
 import StartApp
 import Effects exposing (Never)
@@ -14,7 +14,7 @@ app =
     { init = init
       { title = "magnificat"
       , subtitle = "Śpiewnik Equipes Notre Dame"
-      , route = Home
+      , route = DisplaySong "przybadz-plomieniu"
       }
     , update = update
     , view = view
