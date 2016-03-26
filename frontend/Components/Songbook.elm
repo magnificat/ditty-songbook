@@ -24,7 +24,7 @@ type alias Model =
   , categories : Maybe (List Category)
   , songs : Maybe (List Song)
   , dashboard : Dashboard.Model
-  , currentSongSlug : Maybe String
+  , route : Route
   }
 
 type alias Song =
@@ -35,10 +35,19 @@ type alias Song =
   , blocks : List SongBlock
   }
 
+type Route
+  = Home
+  | DisplaySong SongSlug
+  | NotFound
+
+type alias SongSlug =
+  String
+
 init :
   { a
   | title : String
   , subtitle : String
+  , route : Route
   } -> (Model, Effects Action)
 init stub =
   let
@@ -47,8 +56,8 @@ init stub =
       , subtitle = stub.subtitle
       , categories = Nothing
       , songs = Nothing
-      , currentSongSlug = Just "albowiem-tak-bog"
       , dashboard = Dashboard.init stub
+      , route = stub.route
       }
 
     effects =
@@ -76,7 +85,7 @@ toSongContent song =
 -- UPDATE
 
 type Action
-  = UpdateSong (Maybe String)
+  = Navigate Route
   | RenderCategories (Maybe (List Category))
   | CacheSongs (Maybe (List Song))
   | DashboardAction Dashboard.Action
@@ -85,9 +94,9 @@ update : Action -> Model -> (Model, Effects Action)
 update action model =
   let
     model = case action of
-      UpdateSong songSlug ->
+      Navigate route ->
         { model
-        | currentSongSlug = songSlug
+        | route = route
         }
 
       RenderCategories categories ->
@@ -124,17 +133,13 @@ view address model =
 
     currentSong : Maybe Song
     currentSong =
-      Maybe.map (List.filter isCurrent) model.songs
-        `Maybe.andThen` List.head
+      case model.route of
+        DisplaySong slug ->
+          Maybe.map (List.filter <| \song -> song.slug == slug) model.songs
+            `Maybe.andThen` List.head
 
-    isCurrent : Song -> Bool
-    isCurrent song =
-      case model.currentSongSlug of
-        Just slug ->
-          song.slug == slug
-
-        Nothing ->
-          False
+        _ ->
+          Nothing
 
   in
     div

@@ -1,18 +1,18 @@
-import Router exposing ( init, update, view )
+import Components.Songbook as Songbook exposing (init, update, view, Route(Home))
 import StartApp
-import Effects exposing ( Never )
+import Effects exposing (Never)
 import Task
 import Html
 
 port initialPath : String
 
-app : StartApp.App Router.Model
+app : StartApp.App Songbook.Model
 app =
   StartApp.start
     { init = init
       { title = "magnificat"
       , subtitle = "Śpiewnik Equipes Notre Dame"
-      , initialPath = initialPath
+      , route = Home
       }
     , update = update
     , view = view
