@@ -13,6 +13,7 @@ type alias Model =
   , categories : Maybe (List Category)
   , songs : Maybe (List SongData)
   , unfoldedCategoryId : Maybe CategoryId
+  , errorMessage : Maybe (List Html)
   }
 
 type alias Category =
@@ -40,6 +41,7 @@ init stub =
   , categories = Just []
   , songs = Just []
   , unfoldedCategoryId = Nothing
+  , errorMessage = Nothing
   }
 
 injectCategories : Maybe (List Category) -> Model -> Model
@@ -147,14 +149,20 @@ view address model =
         ]
 
     categoriesOrError =
-      case model.categories of
-        Just categories ->
+      case (model.errorMessage, model.categories) of
+        (Just errorContents, _) ->
+          p
+            [ class "dashboard’s-categories"
+            ]
+            errorContents
+
+        (Nothing, Just categories) ->
           ul
             [ class "dashboard’s-categories"
             ]
             <| List.map renderCategory categories
 
-        Nothing ->
+        (Nothing, Nothing) ->
           p
             [ class "dashboard’s-categories"
             ]

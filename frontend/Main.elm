@@ -1,4 +1,6 @@
-import Components.Songbook as Songbook exposing (init, update, view, Route(Home))
+import Components.Songbook as Songbook exposing
+  ( init, update, view, Route(Home)
+  )
 import StartApp
 import Effects exposing (Never)
 import Task

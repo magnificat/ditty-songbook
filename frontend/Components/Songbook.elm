@@ -1,7 +1,7 @@
 module Components.Songbook where
 
-import Html exposing (Html, div, h1, text, p)
-import Html.Attributes exposing (class)
+import Html exposing (Html, div, h1, text, p, a)
+import Html.Attributes exposing (class, href)
 import Effects exposing (Effects)
 import Signal
 import Effects exposing (Effects)
@@ -141,11 +141,36 @@ view address model =
         _ ->
           Nothing
 
+    dashboardModel =
+      case model.route of
+        NotFound ->
+          let initialDashboardModel = model.dashboard
+          in
+            { initialDashboardModel
+            | errorMessage = Just
+              [ text
+                <| "Avast, lone sailor! We can’t find what yerr "
+                ++ "lookin’ for. But fear not! Yerr never alone at sea! "
+                ++ "You can always sail back to yer "
+              , a
+                [ href "/"
+                ]
+                [ text "home port"
+                ]
+              , text "!"
+              ]
+            }
+
+        _ ->
+          model.dashboard
+
   in
     div
       [ class "songbook"
       ]
-      [ Dashboard.view (Signal.forwardTo address DashboardAction) model.dashboard
+      [ Dashboard.view
+        (Signal.forwardTo address DashboardAction)
+        dashboardModel
       , Display.view <| Display.Model currentSongContent
       ]
 
