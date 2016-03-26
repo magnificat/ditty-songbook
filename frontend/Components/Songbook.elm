@@ -60,6 +60,18 @@ init stub =
   in
     (model, effects)
 
+toSongData : Song -> Dashboard.SongData
+toSongData song =
+  { number = song.number
+  , title = song.title
+  , category = song.category
+  }
+
+toSongContent : Song -> Display.SongContent
+toSongContent song =
+  { blocks = song.blocks
+  }
+
 
 -- UPDATE
 
@@ -97,12 +109,6 @@ update action model =
         | dashboard = Dashboard.update dashboardAction model.dashboard
         }
 
-    toSongData song =
-      { number = song.number
-      , title = song.title
-      , category = song.category
-      }
-
   in
     (model, Effects.none)
 
@@ -114,9 +120,7 @@ view address model =
   let
     currentSongContent : Maybe Display.SongContent
     currentSongContent =
-      Maybe.map
-        (\song -> { blocks = song.blocks })
-        currentSong
+      Maybe.map toSongContent currentSong
 
     currentSong : Maybe Song
     currentSong =
