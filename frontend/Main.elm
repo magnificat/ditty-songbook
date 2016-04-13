@@ -19,7 +19,8 @@ app =
       }
     , update = update
     , view = view
-    , inputs =
+    , inputs = []
+    , inits =
       [ routeChanges
       ]
     }
