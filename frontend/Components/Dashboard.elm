@@ -14,6 +14,7 @@ type alias Model =
   , songs : Maybe (List SongData)
   , unfoldedCategoryId : Maybe CategoryId
   , errorMessage : Maybe (List Html)
+  , currentSongSlug : Maybe Slug
   }
 
 type alias Category =
@@ -28,20 +29,25 @@ type alias SongData =
   { number : String
   , title : String
   , category : CategoryId
+  , slug : Slug
   }
 
+type alias Slug =
+  String
+
 init :
-  { a
-  | title : String
+  { title : String
   , subtitle : String
+  , currentSongSlug : Maybe Slug
   } -> Model
-init stub =
-  { title = stub.title
-  , subtitle = stub.subtitle
+init { title, subtitle, currentSongSlug } =
+  { title = title
+  , subtitle = subtitle
   , categories = Just []
   , songs = Just []
   , unfoldedCategoryId = Nothing
   , errorMessage = Nothing
+  , currentSongSlug = currentSongSlug
   }
 
 injectCategories : Maybe (List Category) -> Model -> Model

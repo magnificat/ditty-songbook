@@ -19,9 +19,7 @@ import Components.Display as Display exposing (SongBlock)
 -- MODEL
 
 type alias Model =
-  { title : String
-  , subtitle : String
-  , categories : Maybe (List Category)
+  { categories : Maybe (List Category)
   , songs : Maybe (List Song)
   , dashboard : Dashboard.Model
   , route : Route
@@ -44,20 +42,21 @@ type alias SongSlug =
   String
 
 init :
-  { a
-  | title : String
+  { title : String
   , subtitle : String
   , route : Route
   } -> (Model, Effects Action)
-init stub =
+init { title, subtitle, route } =
   let
     model =
-      { title = stub.title
-      , subtitle = stub.subtitle
-      , categories = Nothing
+      { categories = Nothing
       , songs = Nothing
-      , dashboard = Dashboard.init stub
-      , route = stub.route
+      , dashboard = Dashboard.init
+        { title = title
+        , subtitle = subtitle
+        , currentSongSlug = Nothing
+        }
+      , route = route
       }
 
     effects =
@@ -74,6 +73,7 @@ toSongData song =
   { number = song.number
   , title = song.title
   , category = song.category
+  , slug = song.slug
   }
 
 toSongContent : Song -> Display.SongContent

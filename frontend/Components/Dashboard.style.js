@@ -7,6 +7,7 @@ const halfCategorySpacing = 10;
 const categoryBorderWidth = 5;
 const transitionDuration = '150ms';
 const transitionFunction = 'cubic-bezier(0, 0, 0, 1)';
+const foldedCategory = '.dashboard’s-category:not(.dashboard’s-category·unfolded)';
 
 module.exports = {
   '.dashboard': {
@@ -96,11 +97,7 @@ module.exports = {
     ].join(', '),
   },
 
-  [
-    '.dashboard’s-category:not(.dashboard’s-category·unfolded)' +
-    ' .dashboard’s-song'
-  ]: {
-    'line-height': '0rem',
+  [`${foldedCategory} .dashboard’s-song`]: {
     'visibility': 'hidden',
     'color': u.primaryColorOpacity(0),
     'transition-timing-function': [
@@ -108,5 +105,9 @@ module.exports = {
       transitionFunction,
       'step-end',
     ].join(', '),
+  },
+
+  [`${foldedCategory} .dashboard’s-song:not(.dashboard’s-song·current)`]: {
+    'line-height': '0rem',
   },
 };
