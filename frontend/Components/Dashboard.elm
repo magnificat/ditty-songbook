@@ -134,7 +134,12 @@ view address model =
 
     renderSong song =
       li
-        [ class "dashboard’s-song"
+        [ classList
+          [ ("dashboard’s-song",
+            True)
+          , ("dashboard’s-song·current",
+            model.currentSongSlug == Just song.slug)
+          ]
         ]
         [ button
           [ class "dashboard’s-button"

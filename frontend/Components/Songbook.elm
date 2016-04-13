@@ -48,13 +48,19 @@ init :
   } -> (Model, Effects Action)
 init { title, subtitle, route } =
   let
+    currentSongSlug = case route of
+      DisplaySong song ->
+        Just song
+      _ ->
+        Nothing
+
     model =
       { categories = Nothing
       , songs = Nothing
       , dashboard = Dashboard.init
         { title = title
         , subtitle = subtitle
-        , currentSongSlug = Nothing
+        , currentSongSlug = currentSongSlug
         }
       , route = route
       }

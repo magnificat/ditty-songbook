@@ -5,6 +5,7 @@ const colors = require('material-colors');
 const dashboardPadding = 20;
 const halfCategorySpacing = 10;
 const categoryBorderWidth = 5;
+const songHeight = 40;
 const transitionDuration = '150ms';
 const transitionFunction = 'cubic-bezier(0, 0, 0, 1)';
 const foldedCategory = '.dashboard’s-category:not(.dashboard’s-category·unfolded)';
@@ -38,7 +39,7 @@ module.exports = {
   },
 
   '.dashboard’s-category': {
-    'line-height': u.inRem(40),
+    'line-height': u.inRem(songHeight),
     'position': 'relative',
     'margin': [
       '0',
@@ -87,6 +88,7 @@ module.exports = {
   },
 
   '.dashboard’s-song': {
+    'position': 'relative',
     'display': 'block',
     'overflow': 'hidden',
     'color': u.primaryColorOpacity(1),
@@ -97,7 +99,8 @@ module.exports = {
     ].join(', '),
   },
 
-  [`${foldedCategory} .dashboard’s-song`]: {
+  [`${foldedCategory} .dashboard’s-song:not(.dashboard’s-song·current)`]: {
+    'line-height': '0rem',
     'visibility': 'hidden',
     'color': u.primaryColorOpacity(0),
     'transition-timing-function': [
@@ -107,7 +110,14 @@ module.exports = {
     ].join(', '),
   },
 
-  [`${foldedCategory} .dashboard’s-song:not(.dashboard’s-song·current)`]: {
-    'line-height': '0rem',
+  '.dashboard’s-song·current::after': {
+    'right': '0',
+    'top': '0',
+    'content': '""',
+    'display': 'block',
+    'border': `${songHeight / 2}px transparent solid`,
+    'border-left-width': '0',
+    'border-right': `${u.inRem(songHeight / 2.5)} black solid`,
+    'position': 'absolute',
   },
 };

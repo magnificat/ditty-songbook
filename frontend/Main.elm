@@ -14,7 +14,7 @@ app =
     { init = init
       { title = "magnificat"
       , subtitle = "Śpiewnik Equipes Notre Dame"
-      , route = DisplaySong "przybadz-plomieniu"
+      , route = DisplaySong "chwalcie-pana-narody"
       }
     , update = update
     , view = view
