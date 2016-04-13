@@ -37,6 +37,7 @@ type Route
   = Home
   | DisplaySong SongSlug
   | NotFound
+  | None
 
 type alias SongSlug =
   String
@@ -44,25 +45,18 @@ type alias SongSlug =
 init :
   { title : String
   , subtitle : String
-  , route : Route
   } -> (Model, Effects Action)
-init { title, subtitle, route } =
+init { title, subtitle } =
   let
-    currentSongSlug = case route of
-      DisplaySong song ->
-        Just song
-      _ ->
-        Nothing
-
     model =
       { categories = Nothing
       , songs = Nothing
       , dashboard = Dashboard.init
         { title = title
         , subtitle = subtitle
-        , currentSongSlug = currentSongSlug
+        , currentSongSlug = Nothing
         }
-      , route = route
+      , route = None
       }
 
     effects =
@@ -171,14 +165,19 @@ view address model =
           model.dashboard
 
   in
-    div
-      [ class "songbook"
-      ]
-      [ Dashboard.view
-        (Signal.forwardTo address DashboardAction)
-        dashboardModel
-      , Display.view <| Display.Model currentSongContent
-      ]
+    case model.route of
+      None ->
+        text ""
+
+      _ ->
+        div
+          [ class "songbook"
+          ]
+          [ Dashboard.view
+            (Signal.forwardTo address DashboardAction)
+            dashboardModel
+          , Display.view <| Display.Model currentSongContent
+          ]
 
 
 -- EFFECTS
