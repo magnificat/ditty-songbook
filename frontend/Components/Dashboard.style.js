@@ -5,8 +5,8 @@ const colors = require('material-colors');
 const dashboardPadding = 20;
 const halfCategorySpacing = 10;
 const categoryBorderWidth = 5;
-const transitionDuration = '100ms';
-const transitionFunction = 'cubic-bezier(0, 0.6, 0, 0.8)';
+const transitionDuration = '150ms';
+const transitionFunction = 'cubic-bezier(0, 0, 0, 1)';
 
 module.exports = {
   '.dashboard': {
@@ -97,8 +97,8 @@ module.exports = {
   },
 
   [
-    '.dashboard’s-category:not(.dashboard’s-category·unfolded)'
-    + ' .dashboard’s-song'
+    '.dashboard’s-category:not(.dashboard’s-category·unfolded)' +
+    ' .dashboard’s-song'
   ]: {
     'line-height': '0rem',
     'visibility': 'hidden',
