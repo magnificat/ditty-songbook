@@ -60,11 +60,15 @@ module.exports = {
       '0',
       u.inRem(dashboardPadding - categoryBorderWidth),
     ].join(' '),
+
     'border-left': [
       u.inRem(categoryBorderWidth),
       'solid',
       u.primaryColorOpacity(0.7),
     ].join(' '),
+
+    'color': 'inherit',
+    'text-decoration': 'none',
   },
 
   '.dashboard’s-button:hover': {

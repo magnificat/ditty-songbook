@@ -141,8 +141,9 @@ view address model =
             model.currentSongSlug == Just song.slug)
           ]
         ]
-        [ button
+        [ a
           [ class "dashboard’s-button"
+          , href <| "/" ++ song.slug
           ]
           [ text <| song.number ++ " " ++ song.title
           ]
