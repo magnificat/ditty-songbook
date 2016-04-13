@@ -1,10 +1,11 @@
 import Components.Songbook as Songbook exposing
-  ( init, update, view, Route(DisplaySong)
+  ( init, update, view, Action(Navigate), Route(DisplaySong, Home, NotFound)
   )
 import StartApp
 import Effects exposing (Never)
 import Task
 import Html
+import Time exposing (second)
 
 port initialPath : String
 
@@ -18,7 +19,14 @@ app =
       }
     , update = update
     , view = view
-    , inputs = []
+    , inputs =
+      [ Signal.map
+        (\seconds -> if truncate(seconds / second) % 2 == 0
+          then Navigate Home
+          else Navigate NotFound
+        )
+        <| Time.every second
+      ]
     }
 
 main : Signal Html.Html
