@@ -95,10 +95,25 @@ update : Action -> Model -> (Model, Effects Action)
 update action model =
   case action of
     Navigate route ->
-      { model
-      | route = route
-      }
-      |> Response.withNone
+      let
+        dashboardModel =
+          model.dashboard
+
+        model' =
+          case route of
+            DisplaySong slug ->
+              { model
+              | route = route
+              , dashboard = { dashboardModel | currentSongSlug = Just slug }
+              }
+
+            _ ->
+              { model
+              | route = route
+              }
+
+      in
+        Response.withNone model'
 
     RenderCategories categories ->
       { model
