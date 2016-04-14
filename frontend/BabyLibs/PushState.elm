@@ -14,13 +14,20 @@ import Effects exposing (Effects)
 
 href : String -> List Attribute
 href url =
-  [ Html.Attributes.href url
-  , onWithOptions
-      "click"
+  let
+    updatePath _ =
+      UpdatePath url |> Signal.message actions.address
+
+    ignoreValue =
+      Json.succeed Nothing
+
+    killEvent =
       { stopPropagation = True, preventDefault = True }
-      (Json.succeed Nothing)
-      (\_ -> Signal.message actions.address <| UpdatePath url)
-  ]
+
+  in
+    [ Html.Attributes.href url
+    , onWithOptions "click" killEvent ignoreValue updatePath
+    ]
 
 actions : Signal.Mailbox Action
 actions =
@@ -41,4 +48,7 @@ update action =
       Effects.none
 
     UpdatePath path ->
-      Effects.map (\_ -> NoOp) <| Effects.task <| History.setPath path
+      let
+        toNoOp _ = NoOp
+      in
+        History.setPath path |> Effects.task |> Effects.map toNoOp
