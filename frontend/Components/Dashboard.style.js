@@ -3,12 +3,14 @@ const c = require('../styles/config');
 const colors = require('material-colors');
 
 const dashboardPadding =
-  20;
+  25;
 
 const halfCategorySpacing =
   10;
-const categoryBorderWidth =
-  5;
+const categoryBorder = {
+  width: 3,
+  offset: 15,
+};
 const songHeight =
   40;
 const arrowHeight =
@@ -61,6 +63,7 @@ module.exports = {
       '0',
       u.inRem(-dashboardPadding),
       u.inRem(halfCategorySpacing * 2),
+      u.inRem(-dashboardPadding + categoryBorder.offset),
     ].join(' '),
   },
 
@@ -74,11 +77,11 @@ module.exports = {
       '0',
       u.inRem(dashboardPadding),
       '0',
-      u.inRem(dashboardPadding - categoryBorderWidth),
+      u.inRem(dashboardPadding - categoryBorder.width - categoryBorder.offset),
     ].join(' '),
 
     'border-left': [
-      u.inRem(categoryBorderWidth),
+      u.inRem(categoryBorder.width),
       'solid',
       u.primaryColorOpacity(0.7),
     ].join(' '),
@@ -97,7 +100,7 @@ module.exports = {
 
   '.dashboard’s-button:focus': {
     'outline': 'none',
-    'border-left-color': colors.cyan[700],
+    'border-left-color': colors.cyan[600],
   },
 
   '.dashboard’s-category-title': {
