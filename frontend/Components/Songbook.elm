@@ -11,6 +11,7 @@ import Json.Decode exposing
   )
 import Json.Decode.Extra exposing ((|:))
 import Task
+import Response
 
 import Components.Dashboard as Dashboard exposing (Category, CategoryId)
 import Components.Display as Display exposing (SongBlock)
@@ -37,6 +38,7 @@ type Route
   = Home
   | DisplaySong SongSlug
   | NotFound
+  | None
 
 type alias SongSlug =
   String
@@ -44,25 +46,18 @@ type alias SongSlug =
 init :
   { title : String
   , subtitle : String
-  , route : Route
   } -> (Model, Effects Action)
-init { title, subtitle, route } =
+init { title, subtitle } =
   let
-    currentSongSlug = case route of
-      DisplaySong song ->
-        Just song
-      _ ->
-        Nothing
-
     model =
       { categories = Nothing
       , songs = Nothing
       , dashboard = Dashboard.init
         { title = title
         , subtitle = subtitle
-        , currentSongSlug = currentSongSlug
+        , currentSongSlug = Nothing
         }
-      , route = route
+      , route = None
       }
 
     effects =
@@ -98,34 +93,42 @@ type Action
 
 update : Action -> Model -> (Model, Effects Action)
 update action model =
-  let
-    model = case action of
-      Navigate route ->
-        { model
-        | route = route
-        }
+  case action of
+    Navigate route ->
+      { model
+      | route = route
+      }
+      |> Response.withNone
 
-      RenderCategories categories ->
-        { model
-        | categories = categories
-        , dashboard = Dashboard.injectCategories categories model.dashboard
-        }
+    RenderCategories categories ->
+      { model
+      | categories = categories
+      , dashboard = Dashboard.injectCategories categories model.dashboard
+      }
+      |> Response.withNone
 
-      CacheSongs songs ->
-        { model
-        | songs = songs
-        , dashboard = Dashboard.injectSongs
-          (Maybe.map (List.map toSongData) songs)
-          model.dashboard
-        }
+    CacheSongs songs ->
+      { model
+      | songs = songs
+      , dashboard = Dashboard.injectSongs
+        (Maybe.map (List.map toSongData) songs)
+        model.dashboard
+      }
+      |> Response.withNone
 
-      DashboardAction dashboardAction ->
+    DashboardAction dashboardAction ->
+      let
+        (dashboardModel, dashboardEffects) =
+          Dashboard.update dashboardAction model.dashboard
+      in
         { model
-        | dashboard = Dashboard.update dashboardAction model.dashboard
+        | dashboard = dashboardModel
         }
+        |> Response.withEffects (Effects.map DashboardAction dashboardEffects)
 
-  in
-    (model, Effects.none)
+appSignal : Signal Action
+appSignal =
+  Signal.map DashboardAction Dashboard.appSignal
 
 
 -- VIEW
@@ -171,14 +174,19 @@ view address model =
           model.dashboard
 
   in
-    div
-      [ class "songbook"
-      ]
-      [ Dashboard.view
-        (Signal.forwardTo address DashboardAction)
-        dashboardModel
-      , Display.view <| Display.Model currentSongContent
-      ]
+    case model.route of
+      None ->
+        text ""
+
+      _ ->
+        div
+          [ class "songbook"
+          ]
+          [ Dashboard.view
+            (Signal.forwardTo address DashboardAction)
+            dashboardModel
+          , Display.view <| Display.Model currentSongContent
+          ]
 
 
 -- EFFECTS

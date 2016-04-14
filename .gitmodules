@@ -1,0 +1,3 @@
+[submodule "vendor/seanhess/start-app"]
+	path = vendor/seanhess/start-app
+	url = git@github.com:seanhess/start-app.git
