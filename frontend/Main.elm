@@ -1,5 +1,6 @@
 import Components.Songbook as Songbook exposing
-  ( init, update, view, Action(Navigate), Route(DisplaySong, Home, NotFound)
+  ( init, update, view, appSignal
+  , Action(Navigate), Route(DisplaySong, Home, NotFound)
   )
 import StartApp
 import Effects exposing (Never)
@@ -19,7 +20,9 @@ app =
       }
     , update = update
     , view = view
-    , inputs = []
+    , inputs =
+      [ appSignal
+      ]
     , inits =
       [ routeChanges
       ]

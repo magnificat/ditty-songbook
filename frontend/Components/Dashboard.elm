@@ -3,6 +3,8 @@ module Components.Dashboard where
 import Html exposing (Html, div, h1, text, p, ul, li, a, button, span)
 import Html.Attributes exposing (class, href, classList)
 import Html.Events exposing (onClick)
+import BabyLibs.PushState as PushState
+import Effects exposing (Effects)
 
 
 -- MODEL
@@ -68,19 +70,40 @@ injectSongs songs model =
 type Action
   = UnfoldCategory CategoryId
   | FoldCategories
+  | UrlChange PushState.Action
 
-update : Action -> Model -> Model
+update : Action -> Model -> (Model, Effects Action)
 update action model =
-  case action of
-    UnfoldCategory id ->
-      { model
-      | unfoldedCategoryId = Just id
-      }
+  let
+    model =
+      case action of
+        UnfoldCategory id ->
+          { model
+          | unfoldedCategoryId = Just id
+          }
 
-    FoldCategories ->
-      { model
-      | unfoldedCategoryId = Nothing
-      }
+        FoldCategories ->
+          { model
+          | unfoldedCategoryId = Nothing
+          }
+
+        _ ->
+          model
+
+    effects =
+      case action of
+        UrlChange pushStateAction ->
+          Effects.map UrlChange
+            <| PushState.update pushStateAction
+        _ ->
+          Effects.none
+
+  in
+    (model, effects)
+
+appSignal : Signal Action
+appSignal =
+  Signal.map UrlChange PushState.appSignal
 
 
 -- VIEW
@@ -136,15 +159,15 @@ view address model =
       li
         [ classList
           [ ("dashboard’s-song",
-            True)
+              True)
           , ("dashboard’s-song·current",
-            model.currentSongSlug == Just song.slug)
+              model.currentSongSlug == Just song.slug)
           ]
         ]
         [ a
-          [ class "dashboard’s-button"
-          , href <| "/" ++ song.slug
-          ]
+          (  class "dashboard’s-button"
+          :: PushState.href ("/" ++ song.slug)
+          )
           [ text <| song.number ++ " " ++ song.title
           ]
         ]

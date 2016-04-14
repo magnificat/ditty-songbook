@@ -11,6 +11,7 @@ import Json.Decode exposing
   )
 import Json.Decode.Extra exposing ((|:))
 import Task
+import Response
 
 import Components.Dashboard as Dashboard exposing (Category, CategoryId)
 import Components.Display as Display exposing (SongBlock)
@@ -92,34 +93,42 @@ type Action
 
 update : Action -> Model -> (Model, Effects Action)
 update action model =
-  let
-    model = case action of
-      Navigate route ->
-        { model
-        | route = route
-        }
+  case action of
+    Navigate route ->
+      { model
+      | route = route
+      }
+      |> Response.withNone
 
-      RenderCategories categories ->
-        { model
-        | categories = categories
-        , dashboard = Dashboard.injectCategories categories model.dashboard
-        }
+    RenderCategories categories ->
+      { model
+      | categories = categories
+      , dashboard = Dashboard.injectCategories categories model.dashboard
+      }
+      |> Response.withNone
 
-      CacheSongs songs ->
-        { model
-        | songs = songs
-        , dashboard = Dashboard.injectSongs
-          (Maybe.map (List.map toSongData) songs)
-          model.dashboard
-        }
+    CacheSongs songs ->
+      { model
+      | songs = songs
+      , dashboard = Dashboard.injectSongs
+        (Maybe.map (List.map toSongData) songs)
+        model.dashboard
+      }
+      |> Response.withNone
 
-      DashboardAction dashboardAction ->
+    DashboardAction dashboardAction ->
+      let
+        (dashboardModel, dashboardEffects) =
+          Dashboard.update dashboardAction model.dashboard
+      in
         { model
-        | dashboard = Dashboard.update dashboardAction model.dashboard
+        | dashboard = dashboardModel
         }
+        |> Response.withEffects (Effects.map DashboardAction dashboardEffects)
 
-  in
-    (model, Effects.none)
+appSignal : Signal Action
+appSignal =
+  Signal.map DashboardAction Dashboard.appSignal
 
 
 -- VIEW
