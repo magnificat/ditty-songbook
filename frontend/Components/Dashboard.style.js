@@ -133,13 +133,13 @@ module.exports = {
   },
 
   '.dashboard’s-song·current::after': {
-    'right': '0',
+    'right': u.inRem(-1),
     'top': u.inRem((songHeight - arrowHeight) / 2),
     'content': '""',
     'display': 'block',
     'border': `${u.inRem(arrowHeight / 2)} transparent solid`,
     'border-left-width': '0',
-    'border-right': `${u.inRem(arrowWidth)} black solid`,
+    'border-right': `${u.inRem(arrowWidth + 1)} black solid`,
     'position': 'absolute',
     '-webkit-filter': arrowFilter,
     'filter': arrowFilter,
