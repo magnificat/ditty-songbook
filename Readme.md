@@ -28,7 +28,7 @@ At the moment, it’s an experiment – I’m doing this to test out new technol
 * [x] CI integration with github data (The data and logic is updated after every push via [travis-ci.org/magnificat/magnificat.surge.sh](https://travis-ci.org/magnificat/magnificat.surge.sh))
 * [x] Lightning-fast loading of fonts and images
 * [x] Navigation
-* [ ] Routing
+* [x] Routing
 * [ ] Full-screen lyrics display optimized for viewing on mobile devices and displaying with a projector
 * [ ] Better handling of 404 errors
 * [ ] Swipe navigation
