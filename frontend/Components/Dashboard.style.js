@@ -8,7 +8,7 @@ const dashboardPadding =
 const halfCategorySpacing =
   10;
 const categoryBorder = {
-  width: 3,
+  width: 2,
   offset: 15,
 };
 const songHeight =
