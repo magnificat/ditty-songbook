@@ -1,8 +1,6 @@
 const u = require('../styles/utils');
 const c = require('../styles/config');
 
-const shadowBlur = 20;
-
 module.exports = {
   '.display': {
     'position': 'absolute',
@@ -19,11 +17,11 @@ module.exports = {
     'display': 'block',
     'content': '" "',
     'position': 'absolute',
-    'top': u.inRem(-shadowBlur),
+    'top': u.inRem(-c.displayShadowBlur),
     'left': '0',
-    'bottom': u.inRem(-shadowBlur),
+    'bottom': u.inRem(-c.displayShadowBlur),
     'right': '0',
-    'box-shadow': `0 0 ${u.inRem(shadowBlur)} black`,
+    'box-shadow': `0 0 ${u.inRem(c.displayShadowBlur)} black`,
   },
 
   '[data-fonts-loaded] .display': {

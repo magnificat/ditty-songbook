@@ -2,13 +2,29 @@ const u = require('../styles/utils');
 const c = require('../styles/config');
 const colors = require('material-colors');
 
-const dashboardPadding = 20;
-const halfCategorySpacing = 10;
-const categoryBorderWidth = 5;
-const songHeight = 40;
-const transitionDuration = '150ms';
-const transitionFunction = 'cubic-bezier(0, 0, 0, 1)';
-const foldedCategory = '.dashboard’s-category:not(.dashboard’s-category·unfolded)';
+const dashboardPadding =
+  20;
+
+const halfCategorySpacing =
+  10;
+const categoryBorderWidth =
+  5;
+const songHeight =
+  40;
+const arrowHeight =
+  70;
+const arrowWidth =
+  20;
+
+const transitionDuration =
+  '150ms';
+const transitionFunction =
+  'cubic-bezier(0, 0, 0, 1)';
+const foldedCategory =
+  '.dashboard’s-category:not(.dashboard’s-category·unfolded)';
+
+const arrowFilter =
+  `drop-shadow(0px 0px ${u.inRem(c.displayShadowBlur / 3)} black)`;
 
 module.exports = {
   '.dashboard': {
@@ -94,7 +110,6 @@ module.exports = {
   '.dashboard’s-song': {
     'position': 'relative',
     'display': 'block',
-    'overflow': 'hidden',
     'color': u.primaryColorOpacity(1),
     'transition': [
       `line-height ${transitionDuration} ${transitionFunction}`,
@@ -116,12 +131,14 @@ module.exports = {
 
   '.dashboard’s-song·current::after': {
     'right': '0',
-    'top': '0',
+    'top': u.inRem((songHeight - arrowHeight) / 2),
     'content': '""',
     'display': 'block',
-    'border': `${songHeight / 2}px transparent solid`,
+    'border': `${u.inRem(arrowHeight / 2)} transparent solid`,
     'border-left-width': '0',
-    'border-right': `${u.inRem(songHeight / 2.5)} black solid`,
+    'border-right': `${u.inRem(arrowWidth)} black solid`,
     'position': 'absolute',
+    '-webkit-filter': arrowFilter,
+    'filter': arrowFilter,
   },
 };
