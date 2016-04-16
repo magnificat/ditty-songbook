@@ -3,4 +3,4 @@
 cd "$(dirname "$0")"/..
 node_modules/.bin/surge \
   --project=static/ \
-  --domain=magnificat.surge.sh
+  --domain=https://magnificat.surge.sh
