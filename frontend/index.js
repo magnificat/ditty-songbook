@@ -16,3 +16,9 @@ const main = document.getElementById('main');
 Elm.embed(Elm.Main, main, {
   initialPath: window.location.pathname,
 });
+
+// Offline installation
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/worker.js');
+}

@@ -29,11 +29,10 @@ At the moment, it’s an experiment – I’m doing this to test out new technol
 * [x] Lightning-fast loading of fonts and images
 * [x] Navigation
 * [x] Routing
+* [x] Offline installation
+* [x] “Add to home screen”
 * [ ] Full-screen lyrics display optimized for viewing on mobile devices and displaying with a projector
-* [ ] Better handling of 404 errors
 * [ ] Swipe navigation
-* [ ] Offline installation
-* [ ] “Add to home screen”
 * [ ] Chords parser
 * [ ] Opt-in chords display
 * [ ] Fetch resources before fetching fonts
