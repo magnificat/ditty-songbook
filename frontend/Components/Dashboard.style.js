@@ -31,7 +31,7 @@ const arrowFilter =
 module.exports = {
   '.dashboard': {
     'padding': u.inRem(dashboardPadding),
-    'width': u.inRem(c.navBarWidth),
+    'width': u.inRem(c.dashboardWidth),
     'height': '100%',
     'overflow': 'auto',
   },

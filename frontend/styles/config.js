@@ -1,5 +1,5 @@
 module.exports = {
-  navBarWidth:
+  dashboardWidth:
     400,
 
   navBarViewportWidth:

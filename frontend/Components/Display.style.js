@@ -5,7 +5,7 @@ module.exports = {
   '.display': {
     'position': 'absolute',
     'top': '0',
-    'left': u.inRem(c.navBarWidth),
+    'left': u.inRem(c.dashboardWidth),
     'height': '100%',
     'width': '100%',
     'padding': '1em',
