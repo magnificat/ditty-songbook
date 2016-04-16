@@ -15,6 +15,8 @@ module.exports = {
     'left': '0',
     'overflow-x': 'scroll',
     'min-height': '100%',
+    'scroll-snap-type': 'mandatory',
+    'scroll-snap-points-x': 'repeat(100%)',
   },
 
   [[
