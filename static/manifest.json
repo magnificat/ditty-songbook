@@ -33,6 +33,9 @@
     "src": "/app-icon/180px.png",
     "sizes": "180x180"
   }, {
+    "src": "/app-icon/192px.png",
+    "sizes": "192x192"
+  }, {
     "src": "/app-icon/195px.png",
     "sizes": "195x195"
   }, {
