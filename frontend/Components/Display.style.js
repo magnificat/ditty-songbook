@@ -2,48 +2,68 @@ const u = require('../styles/utils');
 const c = require('../styles/config');
 
 const grabZoneWidth = 30;
+const relativeLineHeight = 1.8;
+const fontToScreenWidth = 2.5;
+const minFontSizeInPx = 18;
+const lineContinuationIndent = 4;
 
 module.exports = {
-  [[
-    '.display’s-wrapper',
-    '.display',
-  ]]: {
+  '.display’s-wrapper': {
     'position': 'absolute',
     'top': '0',
-    'height': '100%',
     'width': '100%',
-  },
-
-  '.display’s-wrapper': {
     'left': '0',
     'overflow-x': 'scroll',
-    'overflow-y': 'hidden',
+    'min-height': '100%',
+    'scroll-snap-type': 'mandatory',
+    'scroll-snap-points-x': 'repeat(100%)',
   },
 
-  '.display’s-wrapper::-webkit-scrollbar': {
+  [[
+    '.display’s-wrapper',
+  ].map(selector => `${selector}::-webkit-scrollbar`).join(', ')]: {
     'display': 'none',
   },
 
   '.display': {
+    'position': 'relative',
     'z-index': `${c.zIndex.display}`,
     'pointer-events': 'auto',
-    'left': u.inRem(c.dashboardWidth),
-    'padding': '1em',
+    'min-height': '100%',
+    'width': '100%',
+    'margin-left': u.inRem(c.dashboardWidth),
+    'padding': `${relativeLineHeight / 2}em`,
     'background': 'black',
-    'box-shadow': '1px 0 0 1px black',
+    'box-shadow': '999999px 0 0 999999px black',
       // Prevents subpixel rounding artifacts on edges.
     'color': u.whiteOpacity(1),
+    'line-height': `${relativeLineHeight}`,
+    'font-size': `${fontToScreenWidth}vw`,
+  },
+
+  [`@media screen and (max-width: ${
+    minFontSizeInPx / fontToScreenWidth * 100
+  }px)`]: {
+    '.display': {
+      'font-size': `${minFontSizeInPx}px`,
+    },
   },
 
   '.display::before': {
     'display': 'block',
     'content': '""',
     'position': 'absolute',
-    'top': u.inRem(-c.displayShadowBlur),
+    'top': '0',
     'left': '0',
-    'bottom': u.inRem(-c.displayShadowBlur),
+    'bottom': '0',
     'right': '0',
-    'box-shadow': `0 0 ${u.inRem(c.displayShadowBlur)} black`,
+    'box-shadow': [
+      u.inRem(c.displayShadowBlur),
+      '0',
+      u.inRem(c.displayShadowBlur),
+      u.inRem(c.displayShadowBlur),
+      'black',
+    ].join(' '),
   },
 
   '.display::after': {
@@ -66,5 +86,10 @@ module.exports = {
 
   '.display’s-song-block·type»refrain': {
     'font-style': 'italic',
+  },
+
+  '.display’s-song-line': {
+    'padding-left': `${lineContinuationIndent}em`,
+    'text-indent': `${-lineContinuationIndent}em`,
   },
 };
