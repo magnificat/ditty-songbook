@@ -55,6 +55,10 @@ view model =
 
   in
     div
-      [ class "display"
+      [ class "display’s-wrapper"
       ]
-      displayContents
+      [ div
+        [ class "display"
+        ]
+        displayContents
+      ]

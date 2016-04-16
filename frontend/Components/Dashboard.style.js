@@ -30,10 +30,13 @@ const arrowFilter =
 
 module.exports = {
   '.dashboard': {
+    'position': 'relative',
+    'z-index': `${c.zIndex.dashboard}`,
     'padding': u.inRem(dashboardPadding),
-    'width': u.inRem(c.navBarWidth),
+    'width': u.inRem(c.dashboardWidth),
     'height': '100%',
-    'overflow': 'auto',
+    'overflow-y': 'auto',
+    'overflow-x': 'hidden',
   },
 
   '.dashboard::-webkit-scrollbar': {

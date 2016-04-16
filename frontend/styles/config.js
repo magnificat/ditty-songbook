@@ -1,5 +1,5 @@
 module.exports = {
-  navBarWidth:
+  dashboardWidth:
     400,
 
   navBarViewportWidth:
@@ -13,4 +13,9 @@ module.exports = {
 
   displayShadowBlur:
     60,
+
+  zIndex: {
+    dashboard: 10,
+    display: 20,
+  },
 };
