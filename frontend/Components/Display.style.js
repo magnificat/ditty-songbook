@@ -1,6 +1,8 @@
 const u = require('../styles/utils');
 const c = require('../styles/config');
 
+const grabZoneWidth = 30;
+
 module.exports = {
   [[
     '.display’s-wrapper',
@@ -35,13 +37,23 @@ module.exports = {
 
   '.display::before': {
     'display': 'block',
-    'content': '" "',
+    'content': '""',
     'position': 'absolute',
     'top': u.inRem(-c.displayShadowBlur),
     'left': '0',
     'bottom': u.inRem(-c.displayShadowBlur),
     'right': '0',
     'box-shadow': `0 0 ${u.inRem(c.displayShadowBlur)} black`,
+  },
+
+  '.display::after': {
+    'display': 'block',
+    'content': '""',
+    'position': 'absolute',
+    'top': '0',
+    'left': u.inRem(-grabZoneWidth),
+    'bottom': '0',
+    'width': u.inRem(grabZoneWidth),
   },
 
   '[data-fonts-loaded] .display': {
