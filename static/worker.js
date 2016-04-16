@@ -18,15 +18,16 @@ const fetchStrategies = [{
 }, {
   name: 'prefer cache',
   pattern: new RegExp([
-    '\.html$',
-    '\.ico$',
-    '\.css$',
-    '^/scripts\.js$',
+    '\\.html$',
+    '\\.ico$',
+    '\\.css$',
+    '^/fonts/',
+    '^/scripts\\.js$',
   ].join('|')),
 }, {
   name: 'prefer network',
   pattern: new RegExp([
-    '^/api/.*\.json$',
+    '^/api/.*\\.json$',
   ].join('|')),
 }];
 
