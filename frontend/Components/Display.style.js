@@ -8,20 +8,13 @@ const minFontSizeInPx = 18;
 const lineContinuationIndent = 4;
 
 module.exports = {
-  [[
-    '.display’s-wrapper',
-    '.display',
-  ]]: {
+  '.display’s-wrapper': {
     'position': 'absolute',
     'top': '0',
     'width': '100%',
-  },
-
-  '.display’s-wrapper': {
     'left': '0',
-    'height': '100%',
     'overflow-x': 'scroll',
-    'overflow-y': 'auto',
+    'min-height': '100%',
   },
 
   [[
@@ -31,13 +24,15 @@ module.exports = {
   },
 
   '.display': {
+    'position': 'relative',
     'z-index': `${c.zIndex.display}`,
     'pointer-events': 'auto',
     'min-height': '100%',
-    'left': u.inRem(c.dashboardWidth),
+    'width': '100%',
+    'margin-left': u.inRem(c.dashboardWidth),
     'padding': `${relativeLineHeight / 2}em`,
     'background': 'black',
-    'box-shadow': '1px 0 0 1px black',
+    'box-shadow': '999999px 0 0 999999px black',
       // Prevents subpixel rounding artifacts on edges.
     'color': u.whiteOpacity(1),
     'line-height': `${relativeLineHeight}`,

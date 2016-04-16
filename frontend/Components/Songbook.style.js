@@ -4,15 +4,8 @@ const colors = require('material-colors');
 
 module.exports = {
   '.songbook': {
-    'position': 'relative',
-
-    'width': '100%',
-    'height': '100%',
-    'overflow': 'hidden',
-    'line-height': u.inRem(c.lineHeight),
-
-    'background-color': '#d5dbdb',
     'font-size': u.inRem(18),
+    'line-height': u.inRem(c.lineHeight),
     'font-family': 'serif',
     'color': u.primaryColorOpacity(c.opacityBeforeFontsLoaded),
   },
@@ -30,5 +23,9 @@ module.exports = {
 
   '.songbook a:not([class])': {
     'color': colors.cyan[700],
+  },
+
+  '.songbook’s-background': {
+    'background-color': '#d5dbdb',
   },
 };

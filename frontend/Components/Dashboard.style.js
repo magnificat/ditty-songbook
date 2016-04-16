@@ -30,7 +30,7 @@ const arrowFilter =
 
 module.exports = {
   '.dashboard': {
-    'position': 'relative',
+    'position': 'fixed',
     'z-index': `${c.zIndex.dashboard}`,
     'padding': u.inRem(dashboardPadding),
     'width': u.inRem(c.dashboardWidth),
