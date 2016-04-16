@@ -7,48 +7,63 @@
   "theme_color": "black",
   "icons": [{
     "src": "/app-icon/32px.png",
+    "type": "image/png",
     "sizes": "32x32"
   }, {
     "src": "/app-icon/57px.png",
+    "type": "image/png",
     "sizes": "57x57"
   }, {
     "src": "/app-icon/76px.png",
+    "type": "image/png",
     "sizes": "76x76"
   }, {
     "src": "/app-icon/96px.png",
+    "type": "image/png",
     "sizes": "96x96"
   }, {
     "src": "/app-icon/120px.png",
+    "type": "image/png",
     "sizes": "120x120"
   }, {
     "src": "/app-icon/128px.png",
+    "type": "image/png",
     "sizes": "128x128"
   }, {
     "src": "/app-icon/144px.png",
+    "type": "image/png",
     "sizes": "144x144"
   }, {
     "src": "/app-icon/152px.png",
+    "type": "image/png",
     "sizes": "152x152"
   }, {
     "src": "/app-icon/180px.png",
+    "type": "image/png",
     "sizes": "180x180"
   }, {
     "src": "/app-icon/192px.png",
+    "type": "image/png",
     "sizes": "192x192"
   }, {
     "src": "/app-icon/195px.png",
+    "type": "image/png",
     "sizes": "195x195"
   }, {
     "src": "/app-icon/196px.png",
+    "type": "image/png",
     "sizes": "196x196"
   }, {
     "src": "/app-icon/228px.png",
+    "type": "image/png",
     "sizes": "228x228"
   }, {
     "src": "/app-icon/270px.png",
+    "type": "image/png",
     "sizes": "270x270"
   }, {
     "src": "/app-icon/558px.png",
+    "type": "image/png",
     "sizes": "558x558"
   }]
 }
