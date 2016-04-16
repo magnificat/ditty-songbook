@@ -97,6 +97,9 @@ const respondCacheFirst = (event, request) => {
 };
 
 self.addEventListener('fetch', (event) => {
+  // Disable caching in dev environment.
+  if (self.location.hostname === 'localhost') return;
+
   const request = event.request;
   const url = new URL(request.url);
   const fetchStrategy = fetchStrategies.find(strategy => (
