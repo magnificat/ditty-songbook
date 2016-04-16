@@ -31,8 +31,8 @@ At the moment, it’s an experiment – I’m doing this to test out new technol
 * [x] Routing
 * [x] Offline installation
 * [x] “Add to home screen”
-* [ ] Full-screen lyrics display optimized for viewing on mobile devices and displaying with a projector
-* [ ] Swipe navigation
+* [x] Full-screen lyrics display optimized for viewing on mobile devices and displaying with a projector
+* [ ] Better swipe UX
 * [ ] Chords parser
 * [ ] Opt-in chords display
 * [ ] Fetch resources before fetching fonts
