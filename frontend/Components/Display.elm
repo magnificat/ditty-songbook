@@ -51,7 +51,7 @@ view model =
         <| List.map renderLine lines
 
     renderLine line =
-      div [] [text line]
+      div [class "display’s-song-line"] [text line]
 
   in
     div

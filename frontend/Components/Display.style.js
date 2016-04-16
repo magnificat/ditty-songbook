@@ -5,6 +5,7 @@ const grabZoneWidth = 30;
 const relativeLineHeight = 1.8;
 const fontToScreenWidth = 2.5;
 const minFontSizeInPx = 18;
+const lineContinuationIndent = 4;
 
 module.exports = {
   [[
@@ -88,5 +89,10 @@ module.exports = {
 
   '.display’s-song-block·type»refrain': {
     'font-style': 'italic',
+  },
+
+  '.display’s-song-line': {
+    'padding-left': `${lineContinuationIndent}em`,
+    'text-indent': `${-lineContinuationIndent}em`,
   },
 };
