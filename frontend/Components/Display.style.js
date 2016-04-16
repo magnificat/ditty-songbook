@@ -2,6 +2,9 @@ const u = require('../styles/utils');
 const c = require('../styles/config');
 
 const grabZoneWidth = 30;
+const relativeLineHeight = 1.8;
+const fontToScreenWidth = 2.5;
+const minFontSizeInPx = 18;
 
 module.exports = {
   [[
@@ -10,40 +13,59 @@ module.exports = {
   ]]: {
     'position': 'absolute',
     'top': '0',
-    'height': '100%',
     'width': '100%',
   },
 
   '.display’s-wrapper': {
     'left': '0',
+    'height': '100%',
     'overflow-x': 'scroll',
-    'overflow-y': 'hidden',
+    'overflow-y': 'auto',
   },
 
-  '.display’s-wrapper::-webkit-scrollbar': {
+  [[
+    '.display’s-wrapper',
+  ].map(selector => `${selector}::-webkit-scrollbar`).join(', ')]: {
     'display': 'none',
   },
 
   '.display': {
     'z-index': `${c.zIndex.display}`,
     'pointer-events': 'auto',
+    'min-height': '100%',
     'left': u.inRem(c.dashboardWidth),
-    'padding': '1em',
+    'padding': `${relativeLineHeight / 2}em`,
     'background': 'black',
     'box-shadow': '1px 0 0 1px black',
       // Prevents subpixel rounding artifacts on edges.
     'color': u.whiteOpacity(1),
+    'line-height': `${relativeLineHeight}`,
+    'font-size': `${fontToScreenWidth}vw`,
+  },
+
+  [`@media screen and (max-width: ${
+    minFontSizeInPx / fontToScreenWidth * 100
+  }px)`]: {
+    '.display': {
+      'font-size': `${minFontSizeInPx}px`,
+    },
   },
 
   '.display::before': {
     'display': 'block',
     'content': '""',
     'position': 'absolute',
-    'top': u.inRem(-c.displayShadowBlur),
+    'top': '0',
     'left': '0',
-    'bottom': u.inRem(-c.displayShadowBlur),
+    'bottom': '0',
     'right': '0',
-    'box-shadow': `0 0 ${u.inRem(c.displayShadowBlur)} black`,
+    'box-shadow': [
+      u.inRem(c.displayShadowBlur),
+      '0',
+      u.inRem(c.displayShadowBlur),
+      u.inRem(c.displayShadowBlur),
+      'black',
+    ].join(' '),
   },
 
   '.display::after': {
