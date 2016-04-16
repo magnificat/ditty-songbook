@@ -24,4 +24,4 @@ if ('serviceWorker' in navigator) {
 }
 
 // Polyfills
-require('scrollsnap-polyfill');
+require('scrollsnap-polyfill/dist/scrollsnap-polyfill.bundled');
