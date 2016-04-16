@@ -28,6 +28,8 @@ module.exports = {
     'left': u.inRem(c.dashboardWidth),
     'padding': '1em',
     'background': 'black',
+    'box-shadow': '1px 0 0 1px black',
+      // Prevents subpixel rounding artifacts on edges.
     'color': u.whiteOpacity(1),
   },
 
