@@ -5,7 +5,7 @@ const grabZoneWidth = 30;
 const relativeLineHeight = 1.8;
 const fontToScreenWidth = 2.5;
 const minFontSizeInPx = 18;
-const lineContinuationIndent = 4;
+const lineContinuationIndent = 1.8;
 
 module.exports = {
   '.display’s-wrapper': {
@@ -15,8 +15,6 @@ module.exports = {
     'left': '0',
     'overflow-x': 'scroll',
     'min-height': '100%',
-    'scroll-snap-type': 'mandatory',
-    'scroll-snap-points-x': 'repeat(100%)',
   },
 
   [[
