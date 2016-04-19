@@ -18,6 +18,24 @@ At the moment, it’s a giant bunch of experiments. Expect rough edges! I’m do
 <a id="installable-web-app">\* *installable web app* – there seems to be no agreement on how to name these things. Some call them [progressive web apps](https://developers.google.com/web/progressive-web-apps), some call them [native web apps](https://blog.andyet.com/2015/01/22/native-web-apps/) – and I remember seeing other names scattered over the internet. So, to follow the [well-established way of proliferating things](https://imgs.xkcd.com/comics/standards.png), I call them *installable* web apps. It’s accurate (in contrast to *native*), everyone understands it (in contrast to *progressive*) – and it implies that the app can run offline.
 
 
+## Supported browsers
+
+* Latest Chrome.
+
+However, the thing is usable and downgrades reasonably in other browsers.
+
+
+## Supported hardware
+
+* Touch UX is best.
+* Touchpad UX is OK.
+* Mouse UX is shitty at the moment.
+
+
+## Supported browsers
+
+
+
 ## TODO
 
 * [x] Data parser (see [git.io/ditty](https://git.io/ditty))
