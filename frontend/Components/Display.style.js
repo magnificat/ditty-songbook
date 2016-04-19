@@ -15,6 +15,7 @@ module.exports = {
     'left': '0',
     'overflow-x': 'scroll',
     'min-height': '100%',
+    'height': '0',
   },
 
   [[
