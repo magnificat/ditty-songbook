@@ -79,7 +79,7 @@ module.exports = {
   },
 
   '.display’s-song-block': {
-    'margin-bottom': u.inRem(c.lineHeight),
+    'margin-bottom': `${relativeLineHeight}em`,
   },
 
   '.display’s-song-block·type»refrain': {
