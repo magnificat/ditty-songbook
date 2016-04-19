@@ -11,9 +11,9 @@
 
 **An installable songbook web app**
 
-This is an installable web app[\*](#installable-web-app) using Elm, [git.io/jss-lite](git.io/jss-lite) and service workers.
+This is an installable web app[\*](#installable-web-app) using Elm, [git.io/jss-lite](git.io/jss-lite), service workers and a fully static, offline-first REST service.
 
-At the moment, it’s an experiment – I’m doing this to test out new technologies. The app is there to scratch my own itch, but I hope to create something sustainable along the way. Something useful for others.
+At the moment, it’s a giant bunch of experiments. Expect rough edges! I’m doing this to test out new technologies, explore lean and smart ways to do stuff and keep up to date with where the Web is going. I needed a songbook app for a church project – so yeah – I’m scratching my own itch here. But I do hope to create something sustainable and useful for others along the way.
 
 <a id="installable-web-app">\* *installable web app* – there seems to be no agreement on how to name these things. Some call them [progressive web apps](https://developers.google.com/web/progressive-web-apps), some call them [native web apps](https://blog.andyet.com/2015/01/22/native-web-apps/) – and I remember seeing other names scattered over the internet. So, to follow the [well-established way of proliferating things](https://imgs.xkcd.com/comics/standards.png), I call them *installable* web apps. It’s accurate (in contrast to *native*), everyone understands it (in contrast to *progressive*) – and it implies that the app can run offline.
 
@@ -32,11 +32,12 @@ At the moment, it’s an experiment – I’m doing this to test out new technol
 * [x] Offline installation
 * [x] “Add to home screen”
 * [x] Full-screen lyrics display optimized for viewing on mobile devices and displaying with a projector
-* [ ] Better swipe UX
+* [ ] “Lazy like a fox” swipe UX
+* [ ] Reasonable mouse UX (no priority here though)
 * [ ] Chords parser
 * [ ] Opt-in chords display
 * [ ] Fetch resources before fetching fonts
-* [ ] Server-side UI prerender
+* [ ] Server-side UI prerender (this is big!)
 
 
 ## License
