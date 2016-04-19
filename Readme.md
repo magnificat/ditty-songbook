@@ -32,10 +32,6 @@ However, the thing is usable and downgrades reasonably in other browsers.
 * Mouse UX is shitty at the moment.
 
 
-## Supported browsers
-
-
-
 ## TODO
 
 * [x] Data parser (see [git.io/ditty](https://git.io/ditty))
