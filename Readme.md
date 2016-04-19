@@ -47,11 +47,11 @@ However, the thing is usable and downgrades reasonably in other browsers.
 * [x] “Add to home screen”
 * [x] Full-screen lyrics display optimized for viewing on mobile devices and displaying with a projector
 * [ ] “Lazy like a fox” swipe UX
-* [ ] Reasonable mouse UX (no priority here though)
 * [ ] Chords parser
 * [ ] Opt-in chords display
 * [ ] Fetch resources before fetching fonts
 * [ ] Server-side UI prerender (this is big!)
+* [ ] Reasonable mouse UX (no priority here though – sorry!)
 
 
 ## License
