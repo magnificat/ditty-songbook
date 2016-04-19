@@ -33,8 +33,18 @@ module.exports = {
     'margin-left': u.inRem(c.dashboardWidth),
     'padding': `${relativeLineHeight / 2}em`,
     'background': 'black',
-    'box-shadow': '999999px 0 0 999999px black',
-      // Prevents subpixel rounding artifacts on edges.
+    'box-shadow': [
+      [
+        u.inRem(c.displayShadowBlur),
+        '0',
+        u.inRem(c.displayShadowBlur),
+        u.inRem(c.displayShadowBlur),
+        'black',
+      ].join(' '),
+        // The shadow itself
+      '999999px 0 0 999999px black',
+        // Prevent subpixel rounding artifacts on edges.
+    ].join(', '),
     'color': u.whiteOpacity(1),
     'line-height': `${relativeLineHeight}`,
     'font-size': `${fontToScreenWidth}vw`,
@@ -46,23 +56,6 @@ module.exports = {
     '.display': {
       'font-size': `${minFontSizeInPx}px`,
     },
-  },
-
-  '.display::before': {
-    'display': 'block',
-    'content': '""',
-    'position': 'absolute',
-    'top': '0',
-    'left': '0',
-    'bottom': '0',
-    'right': '0',
-    'box-shadow': [
-      u.inRem(c.displayShadowBlur),
-      '0',
-      u.inRem(c.displayShadowBlur),
-      u.inRem(c.displayShadowBlur),
-      'black',
-    ].join(' '),
   },
 
   '.display::after': {
