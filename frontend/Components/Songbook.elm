@@ -101,7 +101,7 @@ update action model =
     updateDisplay action =
       let
         (displayModel, displayEffects) =
-          Display.update (Debug.log "da" action) model.display
+          Display.update action model.display
       in
         { model
         | display = displayModel
