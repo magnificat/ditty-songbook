@@ -23,6 +23,7 @@ type alias Model =
   { categories : Maybe (List Category)
   , songs : Maybe (List Song)
   , dashboard : Dashboard.Model
+  , display : Display.Model
   , route : Route
   }
 
@@ -57,6 +58,7 @@ init { title, subtitle } =
         , subtitle = subtitle
         , currentSongSlug = Nothing
         }
+      , display = Display.init
       , route = None
       }
 
@@ -188,6 +190,8 @@ view address model =
         _ ->
           model.dashboard
 
+    displayModel =
+      model.display
   in
     case model.route of
       None ->
@@ -200,7 +204,10 @@ view address model =
           [ Dashboard.view
             (Signal.forwardTo address DashboardAction)
             dashboardModel
-          , Display.view <| Display.Model currentSongContent
+          , Display.view <|
+            { displayModel
+            | currentSong = currentSongContent
+            }
           ]
 
 
