@@ -6,6 +6,7 @@ import Html.Events exposing (onClick)
 import String
 import Time exposing (Time)
 import Effects exposing (Effects)
+import Easing
 
 
 -- MODEL
@@ -44,6 +45,10 @@ dashboardWidth =
   , rootFontSize = 16
   }
   -- TODO: This should come from elm-styles.
+
+duration : Time
+duration =
+  300 * Time.millisecond
 
 init : Model
 init =
@@ -85,9 +90,6 @@ update action model =
 
             Just { previousClockTime, elapsedTime } ->
               elapsedTime + (clockTime - previousClockTime)
-
-        duration =
-          Time.second
       in
         if newElapsedTime > duration
           then
@@ -139,16 +141,36 @@ view address model =
     renderLine line =
       div [class "display’s-song-line"] [text line]
 
-    leftMarginInPixels =
-      case (model.mode, model.animationState) of
-        (InFocus, Nothing) ->
+    leftMarginInRem =
+      let
+        focusMargin =
           0
 
-        (ShiftedAway, Nothing) ->
-          toFloat dashboardWidth.width
+        shiftedAwayMargin =
+          toFloat dashboardWidth.width / toFloat dashboardWidth.rootFontSize
+      in
+        case (model.mode, model.animationState) of
+          (InFocus, Nothing) ->
+            focusMargin
 
-        (_, Just _) ->
-          (toFloat dashboardWidth.width) / 2
+          (ShiftedAway, Nothing) ->
+            shiftedAwayMargin
+
+          (_, Just animationState) ->
+            let
+              (from, to) = case model.mode of
+                InFocus ->
+                  (focusMargin, shiftedAwayMargin)
+                ShiftedAway ->
+                  (shiftedAwayMargin, focusMargin)
+            in
+              Easing.ease
+                Easing.easeOutExpo
+                Easing.float
+                from
+                to
+                duration
+                animationState.elapsedTime
   in
     div
       [ class "display’s-wrapper"
@@ -157,8 +179,7 @@ view address model =
         [ class "display"
         , style
             [ ( "margin-left"
-              , toString
-                  (leftMarginInPixels / toFloat dashboardWidth.rootFontSize)
+              , toString leftMarginInRem
                 ++ "rem"
               )
             ]
