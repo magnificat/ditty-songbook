@@ -2,6 +2,7 @@ module Components.Display where
 
 import Html exposing (Html, div, text, p, br)
 import Html.Attributes exposing (class, classList, style)
+import Html.Events exposing (onClick)
 import String
 import Time exposing (Time)
 import Effects exposing (Effects)
@@ -113,8 +114,8 @@ update action model =
 
 -- VIEW
 
-view : Model -> Html
-view model =
+view : Signal.Address Action -> Model -> Html
+view address model =
   let
     displayContents =
       case model.currentSong of
@@ -161,6 +162,7 @@ view model =
                 ++ "rem"
               )
             ]
+        , onClick address ShiftAway
         ]
         displayContents
       ]

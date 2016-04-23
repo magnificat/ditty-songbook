@@ -227,7 +227,7 @@ view address model =
             [ class "songbook"
             ]
             [ Dashboard.view context dashboardModel
-            , Display.view <|
+            , Display.view (Signal.forwardTo address DisplayAction) <|
               { displayModel
               | currentSong = currentSongContent
               }
