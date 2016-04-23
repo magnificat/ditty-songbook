@@ -178,7 +178,7 @@ view address model =
       [ div
         [ class "display"
         , style
-            [ ( "margin-left"
+            [ ( "left"
               , toString leftMarginInRem
                 ++ "rem"
               )
