@@ -70,10 +70,8 @@ module.exports = {
     ].join(' '),
   },
 
-  [[
-    '.dashboard’s-button',
-    '.dashboard’s-button:focus',
-  ].join(', ')]: {
+  '.dashboard’s-button': {
+    'position': 'relative',
     'display': 'block',
     'width': '100%',
     'padding': [
@@ -83,22 +81,53 @@ module.exports = {
       u.inRem(dashboardPadding - categoryBorder.width - categoryBorder.offset),
     ].join(' '),
 
+    'color': 'inherit',
+    'text-decoration': 'none',
+  },
+
+  [[
+    '.dashboard’s-button',
+    '.dashboard’s-button:focus',
+    '.dashboard’s-button:active',
+  ]]: {
     'border-left': [
       u.inRem(categoryBorder.width),
       'solid',
       u.primaryColorOpacity(0.7),
     ].join(' '),
-
-    'color': 'inherit',
-    'text-decoration': 'none',
   },
 
-  '.dashboard’s-button:hover': {
+  [[
+    '.dashboard’s-button::before',
+    '.dashboard’s-button::after',
+  ]]: {
+    'content': '""',
+    'display': 'block',
+    'position': 'absolute',
+    'top': '0',
+    'right': '0',
+    'bottom': '0',
+    'left': '0',
+    'opacity': '0',
+    'z-index': '-1',
+  },
+
+  '.dashboard’s-button::before': {
     'background': u.primaryColorOpacity(0.1),
   },
 
-  '.dashboard’s-button:active': {
+  '.dashboard’s-button::after': {
     'background': u.primaryColorOpacity(0.2),
+  },
+
+  [[
+    '.dashboard’s-button:hover::before',
+    '.dashboard’s-button:active::after',
+    '.dashboard’s-button:focus::after',
+  ]]: {
+    'opacity': '1',
+    'background': 'transparent',
+    'transition': 'background 1s cubic-bezier(0, 0, 0.4, 1)',
   },
 
   '.dashboard’s-button:focus': {

@@ -46,6 +46,7 @@ However, the thing is usable and downgrades reasonably in other browsers.
 * [x] Offline installation
 * [x] “Add to home screen”
 * [x] Full-screen lyrics display optimized for viewing on mobile devices and displaying with a projector
+* [x] Lightweight ripple-like effect
 * [ ] “Lazy like a fox” swipe UX
 * [ ] Chords parser
 * [ ] Opt-in chords display
