@@ -1,12 +1,13 @@
 module Components.Display where
 
 import Html exposing (Html, div, text, p, br)
-import Html.Attributes exposing (class, classList, style)
+import Html.Attributes exposing (class, classList, property)
 import Html.Events exposing (onClick)
 import String
 import Time exposing (Time)
 import Effects exposing (Effects)
 import Easing
+import Json.Encode
 
 
 -- MODEL
@@ -141,13 +142,13 @@ view address model =
     renderLine line =
       div [class "display’s-song-line"] [text line]
 
-    leftMarginInRem =
+    leftScrollOffset =
       let
         focusMargin =
-          0
+          dashboardWidth.width
 
         shiftedAwayMargin =
-          toFloat dashboardWidth.width / toFloat dashboardWidth.rootFontSize
+          0
       in
         case (model.mode, model.animationState) of
           (InFocus, Nothing) ->
@@ -161,28 +162,26 @@ view address model =
               (from, to) = case model.mode of
                 InFocus ->
                   (focusMargin, shiftedAwayMargin)
+
                 ShiftedAway ->
                   (shiftedAwayMargin, focusMargin)
             in
-              Easing.ease
+              round <| Easing.ease
                 Easing.easeOutExpo
                 Easing.float
-                from
-                to
+                (toFloat from)
+                (toFloat to)
                 duration
                 animationState.elapsedTime
   in
     div
       [ class "display’s-wrapper"
+      , property
+          "scrollLeft"
+          <| Json.Encode.int leftScrollOffset
       ]
       [ div
         [ class "display"
-        , style
-            [ ( "left"
-              , toString leftMarginInRem
-                ++ "rem"
-              )
-            ]
         , onClick address ShiftAway
         ]
         displayContents
