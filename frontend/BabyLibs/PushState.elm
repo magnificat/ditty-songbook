@@ -21,12 +21,12 @@ href url =
     ignoreValue =
       Json.succeed Nothing
 
-    killEvent =
-      { stopPropagation = True, preventDefault = True }
+    preventDefault =
+      { stopPropagation = False, preventDefault = True }
 
   in
     [ Html.Attributes.href url
-    , onWithOptions "click" killEvent ignoreValue updatePath
+    , onWithOptions "click" preventDefault ignoreValue updatePath
     ]
 
 actions : Signal.Mailbox Action
