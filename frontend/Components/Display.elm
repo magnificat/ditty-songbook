@@ -37,19 +37,13 @@ type alias AnimationState =
     , elapsedTime : Time
     }
 
-dashboardWidth :
-  { width : Int
-  , rootFontSize : Int
-  }
-dashboardWidth =
-  { width = 400
-  , rootFontSize = 16
-  }
+dashboardWidth : Int
+dashboardWidth = 400
   -- TODO: This should come from elm-styles.
 
 duration : Time
 duration =
-  300 * Time.millisecond
+  500 * Time.millisecond
 
 init : Model
 init =
@@ -71,18 +65,18 @@ type alias TargetMode =
 
 update : Action -> Model -> (Model, Effects Action)
 update action model =
-  case (action, model.animationState, model.mode) of
-    (ShiftAway, Nothing, InFocus) ->
+  case (action, model.animationState) of
+    (ShiftAway, Nothing) ->
       ( model
       , Effects.tick <| Tick ShiftedAway
       )
 
-    (Focus, Nothing, ShiftedAway) ->
+    (Focus, Nothing) ->
       ( model
       , Effects.tick <| Tick InFocus
       )
 
-    (Tick targetMode clockTime, _, _) ->
+    (Tick targetMode clockTime, _) ->
       let
         newElapsedTime =
           case model.animationState of
@@ -143,36 +137,29 @@ view address model =
       div [class "display’s-song-line"] [text line]
 
     leftScrollOffset =
-      let
-        focusMargin =
-          dashboardWidth.width
+      case (model.mode, model.animationState) of
+        (InFocus, Nothing) ->
+          dashboardWidth
 
-        shiftedAwayMargin =
+        (ShiftedAway, Nothing) ->
           0
-      in
-        case (model.mode, model.animationState) of
-          (InFocus, Nothing) ->
-            focusMargin
 
-          (ShiftedAway, Nothing) ->
-            shiftedAwayMargin
+        (_, Just animationState) ->
+          let
+            (from, to) = case model.mode of
+              InFocus ->
+                (dashboardWidth, 0)
 
-          (_, Just animationState) ->
-            let
-              (from, to) = case model.mode of
-                InFocus ->
-                  (focusMargin, shiftedAwayMargin)
-
-                ShiftedAway ->
-                  (shiftedAwayMargin, focusMargin)
-            in
-              round <| Easing.ease
-                Easing.easeOutExpo
-                Easing.float
-                (toFloat from)
-                (toFloat to)
-                duration
-                animationState.elapsedTime
+              ShiftedAway ->
+                (0, dashboardWidth)
+          in
+            round <| Easing.ease
+              Easing.easeInOutExpo
+              Easing.float
+              (toFloat from)
+              (toFloat to)
+              duration
+              animationState.elapsedTime
   in
     div
       [ class "display’s-wrapper"
