@@ -47,7 +47,7 @@ dashboardWidth = 400
 
 duration : Time
 duration =
-  500 * Time.millisecond
+  300 * Time.millisecond
 
 init : Model
 init =
@@ -172,7 +172,7 @@ view address model =
                 0
           in
             Easing.ease
-              Easing.easeInOutExpo
+              Easing.easeOutExpo
               Easing.float
               model.currentScrollOffset
               to
