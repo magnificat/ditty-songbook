@@ -2,12 +2,14 @@ module Components.Display where
 
 import Html exposing (Html, div, text, p, br)
 import Html.Attributes exposing (class, classList, property)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, on)
 import String
 import Time exposing (Time)
 import Effects exposing (Effects)
 import Easing
 import Json.Encode
+import Json.Decode
+import Response
 
 
 -- MODEL
@@ -16,6 +18,7 @@ type alias Model =
   { currentSong : Maybe SongContent
   , mode : Mode
   , animationState : AnimationState
+  , currentScrollOffset : Float
   }
 
 type alias SongContent =
@@ -35,9 +38,10 @@ type alias AnimationState =
   Maybe
     { previousClockTime : Time
     , elapsedTime : Time
+    , targetMode : Mode
     }
 
-dashboardWidth : Int
+dashboardWidth : Float
 dashboardWidth = 400
   -- TODO: This should come from elm-styles.
 
@@ -50,6 +54,7 @@ init =
   { currentSong = Nothing
   , mode = ShiftedAway
   , animationState = Nothing
+  , currentScrollOffset = dashboardWidth
   }
 
 
@@ -59,6 +64,7 @@ type Action
   = ShiftAway
   | Focus
   | Tick TargetMode Time
+  | UpdateScrollOffset Float
 
 type alias TargetMode =
   Mode
@@ -91,6 +97,9 @@ update action model =
             ( { model
               | mode = targetMode
               , animationState = Nothing
+              , currentScrollOffset = case targetMode of
+                InFocus -> dashboardWidth
+                ShiftedAway -> 0
               }
             , Effects.none
             )
@@ -100,13 +109,22 @@ update action model =
               | animationState = Just
                 { previousClockTime = clockTime
                 , elapsedTime = newElapsedTime
+                , targetMode = targetMode
                 }
               }
             , Effects.tick <| Tick targetMode
             )
 
+    (UpdateScrollOffset newOffset, Nothing) ->
+      { model
+      | currentScrollOffset = newOffset
+      }
+      |> Response.withNone
+
+
     _ ->
-      (model, Effects.none)
+      model
+      |> Response.withNone
 
 
 -- VIEW
@@ -146,26 +164,29 @@ view address model =
 
         (_, Just animationState) ->
           let
-            (from, to) = case model.mode of
+            to = case animationState.targetMode of
               InFocus ->
-                (dashboardWidth, 0)
+                dashboardWidth
 
               ShiftedAway ->
-                (0, dashboardWidth)
+                0
           in
-            round <| Easing.ease
+            Easing.ease
               Easing.easeInOutExpo
               Easing.float
-              (toFloat from)
-              (toFloat to)
+              model.currentScrollOffset
+              to
               duration
               animationState.elapsedTime
   in
     div
       [ class "display’s-wrapper"
       , property
-          "scrollLeft"
-          <| Json.Encode.int leftScrollOffset
+        "scrollLeft"
+        <| Json.Encode.float leftScrollOffset
+      , on "scroll"
+        (Json.Decode.at ["target", "scrollLeft"] Json.Decode.float)
+        (\newOffset -> Signal.message address <| UpdateScrollOffset newOffset)
       ]
       [ div
         [ class "display"
