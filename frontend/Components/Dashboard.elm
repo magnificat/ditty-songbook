@@ -108,8 +108,13 @@ appSignal =
 
 -- VIEW
 
-view : Signal.Address Action -> Model -> Html
-view address model =
+type alias Context =
+  { actions : Signal.Address Action
+  , focusDisplay : Signal.Address ()
+  }
+
+view : Context -> Model -> Html
+view context model =
   let
     isUnfolded category =
       model.unfoldedCategoryId == Just category.id
@@ -119,7 +124,7 @@ view address model =
         [ class
           <| "dashboard’s-button"
           ++ " dashboard’s-category-title"
-        , onClick address <|
+        , onClick context.actions <|
           if isUnfolded category
             then FoldCategories
             else UnfoldCategory category.id
@@ -163,6 +168,7 @@ view address model =
           , ("dashboard’s-song·current",
               model.currentSongSlug == Just song.slug)
           ]
+        , onClick context.focusDisplay ()
         ]
         [ a
           (  class "dashboard’s-button"

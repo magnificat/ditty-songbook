@@ -30,7 +30,7 @@ module.exports = {
     'pointer-events': 'auto',
     'min-height': '100%',
     'width': '100%',
-    'margin-left': u.inRem(c.dashboardWidth),
+    'left': u.inRem(c.dashboardWidth),
     'padding': `${relativeLineHeight / 2}em`,
     'background': 'black',
     'box-shadow': [

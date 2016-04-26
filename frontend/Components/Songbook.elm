@@ -23,6 +23,7 @@ type alias Model =
   { categories : Maybe (List Category)
   , songs : Maybe (List Song)
   , dashboard : Dashboard.Model
+  , display : Display.Model
   , route : Route
   }
 
@@ -57,6 +58,7 @@ init { title, subtitle } =
         , subtitle = subtitle
         , currentSongSlug = Nothing
         }
+      , display = Display.init
       , route = None
       }
 
@@ -90,56 +92,75 @@ type Action
   | RenderCategories (Maybe (List Category))
   | CacheSongs (Maybe (List Song))
   | DashboardAction Dashboard.Action
+  | DisplayAction Display.Action
+  | FocusDisplay
 
 update : Action -> Model -> (Model, Effects Action)
 update action model =
-  case action of
-    Navigate route ->
+  let
+    updateDisplay action =
       let
-        dashboardModel =
-          model.dashboard
-
-        model' =
-          case route of
-            DisplaySong slug ->
-              { model
-              | route = route
-              , dashboard = { dashboardModel | currentSongSlug = Just slug }
-              }
-
-            _ ->
-              { model
-              | route = route
-              }
-
-      in
-        Response.withNone model'
-
-    RenderCategories categories ->
-      { model
-      | categories = categories
-      , dashboard = Dashboard.injectCategories categories model.dashboard
-      }
-      |> Response.withNone
-
-    CacheSongs songs ->
-      { model
-      | songs = songs
-      , dashboard = Dashboard.injectSongs
-        (Maybe.map (List.map toSongData) songs)
-        model.dashboard
-      }
-      |> Response.withNone
-
-    DashboardAction dashboardAction ->
-      let
-        (dashboardModel, dashboardEffects) =
-          Dashboard.update dashboardAction model.dashboard
+        (displayModel, displayEffects) =
+          Display.update action model.display
       in
         { model
-        | dashboard = dashboardModel
+        | display = displayModel
         }
-        |> Response.withEffects (Effects.map DashboardAction dashboardEffects)
+        |> Response.withEffects (Effects.map DisplayAction displayEffects)
+  in
+    case action of
+      Navigate route ->
+        let
+          dashboardModel =
+            model.dashboard
+
+          model' =
+            case route of
+              DisplaySong slug ->
+                { model
+                | route = route
+                , dashboard = { dashboardModel | currentSongSlug = Just slug }
+                }
+
+              _ ->
+                { model
+                | route = route
+                }
+
+        in
+          Response.withNone model'
+
+      RenderCategories categories ->
+        { model
+        | categories = categories
+        , dashboard = Dashboard.injectCategories categories model.dashboard
+        }
+        |> Response.withNone
+
+      CacheSongs songs ->
+        { model
+        | songs = songs
+        , dashboard = Dashboard.injectSongs
+          (Maybe.map (List.map toSongData) songs)
+          model.dashboard
+        }
+        |> Response.withNone
+
+      DashboardAction dashboardAction ->
+        let
+          (dashboardModel, dashboardEffects) =
+            Dashboard.update dashboardAction model.dashboard
+        in
+          { model
+          | dashboard = dashboardModel
+          }
+          |> Response.withEffects (Effects.map DashboardAction dashboardEffects)
+
+      DisplayAction displayAction ->
+        updateDisplay displayAction
+
+      FocusDisplay ->
+        updateDisplay Display.Focus
 
 appSignal : Signal Action
 appSignal =
@@ -188,20 +209,29 @@ view address model =
         _ ->
           model.dashboard
 
+    displayModel =
+      model.display
   in
     case model.route of
       None ->
         text ""
 
       _ ->
-        div
-          [ class "songbook"
-          ]
-          [ Dashboard.view
-            (Signal.forwardTo address DashboardAction)
-            dashboardModel
-          , Display.view <| Display.Model currentSongContent
-          ]
+        let
+          context =
+            { actions = Signal.forwardTo address DashboardAction
+            , focusDisplay = Signal.forwardTo address (always FocusDisplay)
+            }
+        in
+          div
+            [ class "songbook"
+            ]
+            [ Dashboard.view context dashboardModel
+            , Display.view (Signal.forwardTo address DisplayAction) <|
+              { displayModel
+              | currentSong = currentSongContent
+              }
+            ]
 
 
 -- EFFECTS
