@@ -54,7 +54,7 @@ init =
   { currentSong = Nothing
   , mode = ShiftedAway
   , animationState = Nothing
-  , currentScrollOffset = dashboardWidth
+  , currentScrollOffset = 0
   }
 
 
