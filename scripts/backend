@@ -12,7 +12,7 @@ Usage:
 cd "$(dirname "$0")"/..
 mkdir -p static/api
 echo; echo 'Parsing data and writing files…'
-node --harmony_destructuring --eval "
+node --eval "
   const fs = require('fs');
   const { categories, songs } = require('./backend/static-api.js');
   fs.writeFileSync('static/api/songs.json', songs);
